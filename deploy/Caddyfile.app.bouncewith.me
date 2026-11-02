@@ -1,0 +1,33 @@
+# Caddy site for app.bouncewith.me: static SPA build from web/dist, rsynced by .github/workflows/deploy.yml.
+# Append to /etc/caddy/Caddyfile, then: sudo caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy
+# Caddy obtains and renews the TLS certificate automatically.
+app.bouncewith.me {
+	root * /var/www/app.bouncewith.me
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.supabase.co; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+		-Server
+	}
+
+	# hashed assets: cache forever
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+
+	# embeddable widget: loaded cross-origin by customer websites, short cache
+	@widget path /widget.js
+	header @widget {
+		Cache-Control "public, max-age=300"
+		Access-Control-Allow-Origin *
+	}
+
+	# everything else (index.html via the SPA fallback) must revalidate so new releases show up
+	@html not path /assets/* /widget.js
+	header @html Cache-Control no-cache
+
+	try_files {path} /index.html
+	file_server
+}

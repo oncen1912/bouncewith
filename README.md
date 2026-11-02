@@ -33,7 +33,7 @@ Pushing a `v*.*.*` tag runs `.github/workflows/deploy.yml`: Playwright smoke aga
 | --- | --- |
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | cloud project URL + `sb_publishable_…` key |
 | `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD` | for `supabase db push` |
-| `REMOTE_HOST`, `REMOTE_USER`, `SSH_PRIVATE_KEY`, `REMOTE_TARGET` | Exoscale server (see `deploy/nginx-app.bouncewith.me.conf`) |
+| `REMOTE_HOST`, `REMOTE_USER`, `SSH_PRIVATE_KEY` | Exoscale server. Files go to `/var/www/app.bouncewith.me` (fixed in the workflow); Caddy site: `deploy/Caddyfile.app.bouncewith.me` |
 | `E2E_EMAIL`, `E2E_PASSWORD` | demo member from `npm run demo:create`, used by the post-deploy smoke test |
 
 The cloud project has no seed data. `npm run demo:create` (reads the gitignored `.env.cloud`, see `.env.example`)

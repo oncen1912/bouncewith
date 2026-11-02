@@ -44,6 +44,9 @@ jobs:
     needs: smoke
     runs-on: ubuntu-latest
     environment: production
+    env:
+      # Fixed on purpose (not a secret): other sites live on the same server, and rsync runs with --delete.
+      DEPLOY_DIR: /var/www/app.bouncewith.me
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-node@v7.1.0
@@ -74,8 +77,9 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo mkdir -p ${{ secrets.REMOTE_TARGET }}
-            sudo chown -R $USER:$USER ${{ secrets.REMOTE_TARGET }}
+            sudo mkdir -p ${{ env.DEPLOY_DIR }}
+            sudo chown -R $USER:$USER ${{ env.DEPLOY_DIR }}
+            sudo chmod 755 ${{ env.DEPLOY_DIR }}
 
       - name: Upload build via rsync
         uses: easingthemes/ssh-deploy@v6.0.1
@@ -84,16 +88,16 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           SOURCE: web/dist/
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+          TARGET: ${{ env.DEPLOY_DIR }}
           ARGS: -rlgoDzvc --delete
 
-      - name: Hand files to the web server
+      - name: Make files readable by the web server (Caddy)
         uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: sudo chown -R www-data:www-data ${{ secrets.REMOTE_TARGET }}
+          script: chmod -R a+rX ${{ env.DEPLOY_DIR }}
 
   verify:
     name: Smoke test the deployed app

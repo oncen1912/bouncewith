@@ -320,7 +320,8 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - 2026-11-01 · M0 · System font stack instead of Google Fonts (no third-party requests, simpler CSP, GDPR).
 - 2026-11-01 · M0 · Events/Inbox/Assistant tabs point to a "Coming soon" placeholder until M2/M5/M6. "More" opens `/me`.
 - 2026-11-01 · M0 · `/me` → "Delete account" is deferred to M1: it needs an Edge Function with the secret key (§11 anonymisation).
-- 2026-11-01 · M0 · The deploy workflow runs a Playwright smoke against a local Supabase in CI, then `supabase db push`, then rsyncs `web/dist` (which includes `widget.js`). nginx config in `deploy/`.
+- 2026-11-01 · M0 · The deploy workflow runs a Playwright smoke against a local Supabase in CI, then `supabase db push`, then rsyncs `web/dist` (which includes `widget.js`). The server runs Caddy (automatic TLS); site block in `deploy/`.
 - 2026-11-01 · M0 · vue-i18n uses the full build (≈42 kB gz); first-load JS is ≈127 kB gz. Switch to precompiled messages if the 200 kB budget gets tight.
 - 2026-11-02 · M0 · Cloud project in Supabase region Zurich (`eu-central-2`), org "oncen1912's Org". This replaces "EU region" in §11: Switzerland has an EU adequacy decision.
 - 2026-11-02 · M0 · The cloud project gets no seed data. `npm run demo:create` (secret key from the gitignored `.env.cloud`, run locally) creates workspace `demo` with a demo owner and member; the deploy workflow's `verify` job signs in as the demo member on app.bouncewith.me.
+- 2026-11-02 · M0 · Hosting stays at app.bouncewith.me. The server runs Caddy (energizug uses `*.energizug.bouncewith.me`, the website uses `bouncewith.me`). The deploy folder `/var/www/app.bouncewith.me` is fixed in the workflow, not a secret, so `rsync --delete` can't hit another site.
