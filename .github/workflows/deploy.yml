@@ -1,0 +1,116 @@
+name: Deploy
+
+on:
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    name: Playwright smoke (local Supabase)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Start Supabase (auth, rest, mail)
+        run: npx supabase start -x studio,imgproxy,vector,logflare,storage-api,edge-runtime,realtime,supavisor,postgres-meta
+      - name: Point the app at local Supabase
+        run: |
+          status=$(npx supabase status -o json)
+          echo "VITE_SUPABASE_URL=$(echo "$status" | jq -r .API_URL)" >> .env.local
+          echo "VITE_SUPABASE_PUBLISHABLE_KEY=$(echo "$status" | jq -r .PUBLISHABLE_KEY)" >> .env.local
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - if: failure()
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: playwright-report
+          path: test-results/
+          retention-days: 7
+
+  deploy:
+    name: Migrate + deploy to Exoscale (app.bouncewith.me)
+    needs: smoke
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+
+      - name: Apply database migrations
+        run: |
+          npx supabase link --project-ref "$SUPABASE_PROJECT_REF"
+          npx supabase db push
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+
+      - name: Build app + widget
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+
+      - name: Prepare remote directory
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo mkdir -p ${{ secrets.REMOTE_TARGET }}
+            sudo chown -R $USER:$USER ${{ secrets.REMOTE_TARGET }}
+
+      - name: Upload build via rsync
+        uses: easingthemes/ssh-deploy@v6.0.1
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          SOURCE: web/dist/
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+          ARGS: -rlgoDzvc --delete
+
+      - name: Hand files to the web server
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: sudo chown -R www-data:www-data ${{ secrets.REMOTE_TARGET }}
+
+  verify:
+    name: Smoke test the deployed app
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+        env:
+          BASE_URL: https://app.bouncewith.me
+          E2E_EMAIL: ${{ secrets.E2E_EMAIL }}
+          E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
+          E2E_WORKSPACE_NAME: BounceWith Demo

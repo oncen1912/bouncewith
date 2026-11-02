@@ -1,0 +1,40 @@
+{
+  "name": "bouncewith",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "shared",
+    "web",
+    "widget"
+  ],
+  "scripts": {
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "npm run typecheck --workspaces --if-present && tsc -p scripts",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "build": "npm run build -w web && npm run build -w widget && cp widget/dist/widget.js web/dist/widget.js",
+    "db:types": "supabase gen types typescript --local --schema public > shared/database.types.ts && prettier --write shared/database.types.ts",
+    "demo:create": "node --env-file-if-exists=.env.cloud scripts/create-demo-users.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.0.0",
+    "@vue/eslint-config-prettier": "^10.2.0",
+    "@vue/eslint-config-typescript": "^14.9.0",
+    "eslint": "^10.14.0",
+    "eslint-plugin-vue": "^10.12.0",
+    "globals": "^17.14.0",
+    "jsdom": "^30.1.3",
+    "prettier": "^3.9.10",
+    "supabase": "^2.122.0",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vitest": "^5.0.5",
+    "vue-tsc": "^3.3.14"
+  }
+}
