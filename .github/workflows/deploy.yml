@@ -40,13 +40,13 @@ jobs:
           retention-days: 7
 
   deploy:
-    name: Migrate + deploy to Exoscale (my.bouncewith.me)
+    name: Migrate + deploy to Exoscale (app.bouncewith.me)
     needs: smoke
     runs-on: ubuntu-latest
     environment: production
     env:
       # Fixed on purpose (not a secret): other sites live on the same server, and rsync runs with --delete.
-      DEPLOY_DIR: /var/www/my.bouncewith.me
+      DEPLOY_DIR: /var/www/app.bouncewith.me
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: actions/setup-node@v7.1.0
@@ -114,7 +114,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run e2e
         env:
-          BASE_URL: https://my.bouncewith.me
+          BASE_URL: https://app.bouncewith.me
           E2E_EMAIL: ${{ secrets.E2E_EMAIL }}
           E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
           E2E_WORKSPACE_NAME: BounceWith Demo

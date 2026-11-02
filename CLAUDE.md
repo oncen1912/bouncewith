@@ -20,7 +20,7 @@ API and milestones. If code and SPEC disagree, ask before changing the SPEC.
 | AI | Claude API (small, fast model) called only from the `ai-assistant` Edge Function |
 | Widget | Vue custom element (`defineCustomElement`) built as a single `widget.js` |
 | Tests | Vitest (unit), pgTAP via `supabase test db` (RLS + SQL functions), Playwright (e2e smoke) |
-| Hosting | Static build on Exoscale (`my.bouncewith.me`), deployed by GitHub Actions on `v*.*.*` tags |
+| Hosting | Static build on Exoscale (`app.bouncewith.me`), deployed by GitHub Actions on `v*.*.*` tags |
 
 The reference implementation for patterns (auth store, router guards, TinyMCE, deploy workflow)
 is the sibling repo `../nikodanceschool`. Reuse ideas from it, but follow the rules below where they differ.

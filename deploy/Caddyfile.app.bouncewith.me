@@ -1,8 +1,8 @@
-# Caddy site for my.bouncewith.me: static SPA build from web/dist, rsynced by .github/workflows/deploy.yml.
+# Caddy site for app.bouncewith.me: static SPA build from web/dist, rsynced by .github/workflows/deploy.yml.
 # Append to /etc/caddy/Caddyfile, then: sudo caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy
 # Caddy obtains and renews the TLS certificate automatically.
-my.bouncewith.me {
-	root * /var/www/my.bouncewith.me
+app.bouncewith.me {
+	root * /var/www/app.bouncewith.me
 	encode zstd gzip
 
 	header {
