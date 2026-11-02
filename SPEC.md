@@ -243,13 +243,13 @@ Edge Functions: `send-broadcast` (fan-out: push via VAPID, email via Resend in b
 Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 
 ### M0 — Foundation
-- [ ] npm workspaces (`web`, `widget`, `shared`), TypeScript strict, ESLint + Prettier, Vitest, Playwright
-- [ ] Supabase project (EU) + local `supabase start`; add the init migration; `npm run db:types`
-- [ ] Convert `supabase/tests/manual/rls_smoke.sql` into pgTAP tests (`supabase/tests/rls.test.sql`)
-- [ ] `seed.sql`: workspace `niko-dance`, 1 owner, 1 trainer, 6 members, group Juniors, 4 upcoming events
-- [ ] Web shell: router, i18n (en/sl/de), layout (tab bar / sidebar), dark theme tokens, vue-sonner
-- [ ] Auth: magic link, email + password, Google; `/me` page
-- [ ] CI workflow; deploy workflow to Exoscale (`app.bouncewith.me`) on tags
+- [x] npm workspaces (`web`, `widget`, `shared`), TypeScript strict, ESLint + Prettier, Vitest, Playwright
+- [x] Supabase project (EU) + local `supabase start`; add the init migration; `npm run db:types` — cloud: `opfanxmublhjxyjgyjqu`, Zurich
+- [x] Convert `supabase/tests/manual/rls_smoke.sql` into pgTAP tests (`supabase/tests/rls.test.sql`)
+- [x] `seed.sql`: workspace `niko-dance`, 1 owner, 1 trainer, 6 members, group Juniors, 4 upcoming events
+- [x] Web shell: router, i18n (en/sl/de), layout (tab bar / sidebar), dark theme tokens, vue-sonner
+- [ ] Auth: magic link, email + password, Google; `/me` page — magic link, password and `/me` done and e2e-tested locally; Google is wired but needs OAuth credentials in the cloud project
+- [ ] CI workflow; deploy workflow to Exoscale (`app.bouncewith.me`) on tags — CI green on PR #1; deploy waits for production secrets + server
 - **Done when:** a seeded user logs in on the deployed URL and sees the empty home; CI is green.
 
 ### M1 — Workspaces and members
@@ -310,3 +310,17 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 
 ## Decisions log
 (Claude Code: append dated one-line decisions here.)
+- 2026-11-01 · M0 · Local Supabase runs Postgres 17 (CLI default); the init migration applies unchanged on 17.
+- 2026-11-01 · M0 · TypeScript pinned to ~6.0 (typescript-eslint supports < 6.1); Pinia pinned to 3 as CLAUDE.md says, although Pinia 4 exists.
+- 2026-11-01 · M0 · Generated types live at `shared/database.types.ts`; CI fails if they are stale.
+- 2026-11-01 · M0 · `rls.test.sql` adds a cross-workspace denial check for every tenant table (with positive controls) and checks that members can't write rsvps/attendance/memberships directly. The manual smoke files were removed after the port.
+- 2026-11-01 · M0 · Seed adds a second small workspace `yoga-zug` for cross-tenant checks; all seed users sign in locally with password `bouncewith`. One niko-dance member is `pending`.
+- 2026-11-01 · M0 · Magic link, sign-up confirmation and Google all return through `/auth/callback?next=…` (PKCE). `next` only accepts same-origin paths.
+- 2026-11-01 · M0 · UI language: stored choice → browser language → en; once signed in, `profiles.locale` wins and `/me` saves it.
+- 2026-11-01 · M0 · System font stack instead of Google Fonts (no third-party requests, simpler CSP, GDPR).
+- 2026-11-01 · M0 · Events/Inbox/Assistant tabs point to a "Coming soon" placeholder until M2/M5/M6. "More" opens `/me`.
+- 2026-11-01 · M0 · `/me` → "Delete account" is deferred to M1: it needs an Edge Function with the secret key (§11 anonymisation).
+- 2026-11-01 · M0 · The deploy workflow runs a Playwright smoke against a local Supabase in CI, then `supabase db push`, then rsyncs `web/dist` (which includes `widget.js`). nginx config in `deploy/`.
+- 2026-11-01 · M0 · vue-i18n uses the full build (≈42 kB gz); first-load JS is ≈127 kB gz. Switch to precompiled messages if the 200 kB budget gets tight.
+- 2026-11-02 · M0 · Cloud project in Supabase region Zurich (`eu-central-2`), org "oncen1912's Org". This replaces "EU region" in §11: Switzerland has an EU adequacy decision.
+- 2026-11-02 · M0 · The cloud project gets no seed data. `npm run demo:create` (secret key from the gitignored `.env.cloud`, run locally) creates workspace `demo` with a demo owner and member; the deploy workflow's `verify` job signs in as the demo member on app.bouncewith.me.

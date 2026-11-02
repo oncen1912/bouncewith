@@ -1,0 +1,83 @@
+{
+  "common": { "loading": "Nalaganje …", "save": "Shrani" },
+  "errors": { "generic": "Nekaj je šlo narobe. Poskusi znova." },
+  "languages": { "en": "English", "sl": "Slovenščina", "de": "Deutsch" },
+  "roles": { "owner": "Lastnik", "trainer": "Trener", "member": "Član" },
+  "nav": {
+    "main": "Glavna navigacija",
+    "skipToContent": "Skoči na vsebino",
+    "workspaces": "Delovni prostori",
+    "me": "Profil",
+    "home": "Domov",
+    "events": "Dogodki",
+    "inbox": "Sporočila",
+    "assistant": "Pomočnik",
+    "more": "Več"
+  },
+  "auth": {
+    "title": "Dobrodošli v BounceWith",
+    "subtitle": "Prijavi se in poglej svoje vadbe in dogodke.",
+    "google": "Nadaljuj z Googlom",
+    "or": "ali",
+    "method": "Način prijave",
+    "magicLink": "Povezava po e-pošti",
+    "password": "Geslo",
+    "email": "E-pošta",
+    "fullName": "Ime in priimek",
+    "sendMagicLink": "Pošlji mi povezavo za prijavo",
+    "magicSent": "Preveri e-pošto: povezavo za prijavo smo poslali na {email}.",
+    "useOtherEmail": "Uporabi drug e-naslov",
+    "signIn": "Prijava",
+    "signUp": "Ustvari račun",
+    "noAccount": "Še nimaš računa? Ustvari ga",
+    "haveAccount": "Že imaš račun? Prijavi se",
+    "confirmEmail": "Skoraj končano: potrdi e-naslov s povezavo, ki smo jo poslali na {email}.",
+    "signingIn": "Prijavljanje …",
+    "callbackFailed": "Ta povezava za prijavo ne deluje",
+    "callbackFailedText": "Morda je potekla ali je bila že uporabljena. Zahtevaj novo.",
+    "backToLogin": "Nazaj na prijavo",
+    "signOut": "Odjava",
+    "errors": {
+      "invalid_credentials": "Napačen e-naslov ali geslo.",
+      "email_not_confirmed": "Najprej potrdi svoj e-naslov.",
+      "user_already_exists": "Račun s tem e-naslovom že obstaja. Raje se prijavi.",
+      "weak_password": "Izberi močnejše geslo (vsaj 8 znakov).",
+      "over_email_send_rate_limit": "Poslanih je bilo preveč e-sporočil. Počakaj minuto in poskusi znova.",
+      "over_request_rate_limit": "Preveč poskusov. Počakaj minuto in poskusi znova.",
+      "provider_disabled": "Ta način prijave še ni na voljo.",
+      "email_address_invalid": "Ta e-naslov ni veljaven."
+    }
+  },
+  "workspaces": {
+    "title": "Tvoji delovni prostori",
+    "emptyTitle": "Še nisi v nobenem delovnem prostoru",
+    "emptyText": "Prosi svojo šolo ali studio za povezavo ali kodo za pridružitev."
+  },
+  "home": {
+    "greeting": "Živjo!",
+    "greetingName": "Živjo, {name}!",
+    "nextEvents": "Naslednji dogodki",
+    "noEventsTitle": "Še ni dogodkov",
+    "noEventsText": "Tu se bodo prikazale tvoje prihajajoče vadbe in dogodki.",
+    "messages": "Sporočila",
+    "noMessagesTitle": "Ni novih sporočil",
+    "noAccessTitle": "Delovnega prostora ni mogoče najti",
+    "noAccessText": "Ne obstaja ali pa tvoje članstvo še ni aktivno."
+  },
+  "me": {
+    "title": "Profil",
+    "profile": "Tvoji podatki",
+    "language": "Jezik",
+    "notifications": "Obvestila",
+    "notifyPush": "Potisna obvestila",
+    "notifyEmail": "Obvestila po e-pošti",
+    "workspaces": "Moji delovni prostori",
+    "saved": "Shranjeno"
+  },
+  "placeholder": { "title": "Kmalu", "text": "Ta del aplikacije BounceWith je še v izdelavi." },
+  "notFound": {
+    "title": "Strani ni mogoče najti",
+    "text": "Povezava je morda napačna ali zastarela.",
+    "back": "Na moje delovne prostore"
+  }
+}

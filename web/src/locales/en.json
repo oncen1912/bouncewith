@@ -1,0 +1,83 @@
+{
+  "common": { "loading": "Loading…", "save": "Save" },
+  "errors": { "generic": "Something went wrong. Please try again." },
+  "languages": { "en": "English", "sl": "Slovenščina", "de": "Deutsch" },
+  "roles": { "owner": "Owner", "trainer": "Trainer", "member": "Member" },
+  "nav": {
+    "main": "Main navigation",
+    "skipToContent": "Skip to content",
+    "workspaces": "Workspaces",
+    "me": "Profile",
+    "home": "Home",
+    "events": "Events",
+    "inbox": "Inbox",
+    "assistant": "Assistant",
+    "more": "More"
+  },
+  "auth": {
+    "title": "Welcome to BounceWith",
+    "subtitle": "Sign in to see your classes and events.",
+    "google": "Continue with Google",
+    "or": "or",
+    "method": "Sign-in method",
+    "magicLink": "E-mail link",
+    "password": "Password",
+    "email": "E-mail",
+    "fullName": "Full name",
+    "sendMagicLink": "Send me a sign-in link",
+    "magicSent": "Check your inbox: we sent a sign-in link to {email}.",
+    "useOtherEmail": "Use a different e-mail",
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "noAccount": "No account yet? Create one",
+    "haveAccount": "Already have an account? Sign in",
+    "confirmEmail": "Almost there: confirm your e-mail via the link we sent to {email}.",
+    "signingIn": "Signing you in…",
+    "callbackFailed": "This sign-in link didn't work",
+    "callbackFailedText": "It may have expired or already been used. Request a new one.",
+    "backToLogin": "Back to sign-in",
+    "signOut": "Sign out",
+    "errors": {
+      "invalid_credentials": "Wrong e-mail or password.",
+      "email_not_confirmed": "Please confirm your e-mail first.",
+      "user_already_exists": "An account with this e-mail already exists. Sign in instead.",
+      "weak_password": "Choose a stronger password (at least 8 characters).",
+      "over_email_send_rate_limit": "Too many e-mails sent. Please wait a minute and try again.",
+      "over_request_rate_limit": "Too many attempts. Please wait a minute and try again.",
+      "provider_disabled": "This sign-in method isn't available yet.",
+      "email_address_invalid": "This e-mail address isn't valid."
+    }
+  },
+  "workspaces": {
+    "title": "Your workspaces",
+    "emptyTitle": "You're not in a workspace yet",
+    "emptyText": "Ask your school or studio for an invite link or join code."
+  },
+  "home": {
+    "greeting": "Hi there!",
+    "greetingName": "Hi {name}!",
+    "nextEvents": "Next events",
+    "noEventsTitle": "No events yet",
+    "noEventsText": "Your upcoming classes and events will show up here.",
+    "messages": "Messages",
+    "noMessagesTitle": "No new messages",
+    "noAccessTitle": "Workspace not found",
+    "noAccessText": "It doesn't exist, or your membership isn't active yet."
+  },
+  "me": {
+    "title": "Profile",
+    "profile": "Your details",
+    "language": "Language",
+    "notifications": "Notifications",
+    "notifyPush": "Push notifications",
+    "notifyEmail": "E-mail notifications",
+    "workspaces": "My workspaces",
+    "saved": "Saved"
+  },
+  "placeholder": { "title": "Coming soon", "text": "This part of BounceWith is still being built." },
+  "notFound": {
+    "title": "Page not found",
+    "text": "The link may be wrong or out of date.",
+    "back": "Go to my workspaces"
+  }
+}

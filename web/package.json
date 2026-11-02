@@ -1,0 +1,26 @@
+{
+  "name": "@bouncewith/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "typecheck": "vue-tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@bouncewith/shared": "*",
+    "@supabase/supabase-js": "^2.118.0",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.2",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.44",
+    "vue-i18n": "^11.4.17",
+    "vue-router": "^5.4.0",
+    "vue-sonner": "^2.0.9"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.10",
+    "vite": "^8.3.5"
+  }
+}

@@ -1,0 +1,106 @@
+/* Dark theme tokens, matching bouncewith.me (../nikodanceschool/DESIGN-PLAN.md).
+   --bw-accent is overridden per workspace (workspaces.accent_color). */
+:root,
+[data-bs-theme='dark'] {
+  --bw-teal: #1bbdbf;
+  --bw-pink: #f01a7f;
+  --bw-yellow: #f8b830;
+  --bw-accent: var(--bw-teal);
+
+  --bw-bg: #0c0c0c;
+  --bw-bg-2: #141414;
+  --bw-bg-3: #1e1e1e;
+  --bw-bg-4: #282828;
+  --bw-text: #f0f0f0;
+  --bw-text-muted: #a3a3a3; /* 7.9:1 on --bw-bg, WCAG AA */
+  --bw-border: #2e2e2e;
+  --bw-radius: 12px;
+  --bw-radius-lg: 20px;
+  --bw-tabbar-height: 64px;
+  --bw-sidebar-width: 240px;
+
+  --bs-body-bg: var(--bw-bg);
+  --bs-body-color: var(--bw-text);
+  --bs-secondary-color: var(--bw-text-muted);
+  --bs-border-color: var(--bw-border);
+  --bs-tertiary-bg: var(--bw-bg-2);
+  --bs-secondary-bg: var(--bw-bg-3);
+  --bs-border-radius: var(--bw-radius);
+  --bs-border-radius-lg: var(--bw-radius-lg);
+  --bs-primary: var(--bw-accent);
+  --bs-primary-rgb: 27, 189, 191;
+  --bs-link-color: var(--bw-accent);
+  --bs-link-hover-color: var(--bw-accent);
+  --bs-link-color-rgb: 27, 189, 191;
+  --bs-focus-ring-color: color-mix(in srgb, var(--bw-accent) 40%, transparent);
+  --bs-body-font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--bw-accent);
+  --bs-btn-border-color: var(--bw-accent);
+  --bs-btn-color: #000;
+  --bs-btn-hover-bg: color-mix(in srgb, var(--bw-accent) 85%, #fff);
+  --bs-btn-hover-border-color: color-mix(in srgb, var(--bw-accent) 85%, #fff);
+  --bs-btn-hover-color: #000;
+  --bs-btn-active-bg: color-mix(in srgb, var(--bw-accent) 75%, #000);
+  --bs-btn-active-border-color: color-mix(in srgb, var(--bw-accent) 75%, #000);
+  --bs-btn-active-color: #000;
+  --bs-btn-disabled-bg: var(--bw-accent);
+  --bs-btn-disabled-border-color: var(--bw-accent);
+  --bs-btn-disabled-color: #000;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: var(--bw-accent);
+  box-shadow: 0 0 0 0.25rem var(--bs-focus-ring-color);
+}
+
+.form-check-input:checked {
+  background-color: var(--bw-accent);
+  border-color: var(--bw-accent);
+}
+
+/* 44 px touch targets (SPEC §11) */
+.btn,
+.form-control,
+.form-select {
+  min-height: 44px;
+}
+
+.card {
+  --bs-card-bg: var(--bw-bg-3);
+  --bs-card-border-color: var(--bw-border);
+}
+
+.text-muted,
+.text-body-secondary {
+  color: var(--bw-text-muted) !important;
+}
+
+.bw-empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--bw-text-muted);
+  border: 1px dashed var(--bw-border);
+  border-radius: var(--bw-radius);
+}
+
+.bw-empty .bi {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--bw-accent);
+}
+
+.visually-hidden-focusable:focus {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  background: var(--bw-bg-3);
+  border-radius: var(--bw-radius);
+}

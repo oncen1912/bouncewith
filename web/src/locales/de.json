@@ -1,0 +1,83 @@
+{
+  "common": { "loading": "Wird geladen …", "save": "Speichern" },
+  "errors": { "generic": "Etwas ist schiefgelaufen. Bitte versuche es noch einmal." },
+  "languages": { "en": "English", "sl": "Slovenščina", "de": "Deutsch" },
+  "roles": { "owner": "Inhaber:in", "trainer": "Trainer:in", "member": "Mitglied" },
+  "nav": {
+    "main": "Hauptnavigation",
+    "skipToContent": "Zum Inhalt springen",
+    "workspaces": "Workspaces",
+    "me": "Profil",
+    "home": "Start",
+    "events": "Termine",
+    "inbox": "Nachrichten",
+    "assistant": "Assistent",
+    "more": "Mehr"
+  },
+  "auth": {
+    "title": "Willkommen bei BounceWith",
+    "subtitle": "Melde dich an, um deine Kurse und Termine zu sehen.",
+    "google": "Weiter mit Google",
+    "or": "oder",
+    "method": "Anmeldemethode",
+    "magicLink": "Link per E-Mail",
+    "password": "Passwort",
+    "email": "E-Mail",
+    "fullName": "Vor- und Nachname",
+    "sendMagicLink": "Anmeldelink senden",
+    "magicSent": "Schau in dein Postfach: Wir haben einen Anmeldelink an {email} geschickt.",
+    "useOtherEmail": "Andere E-Mail-Adresse verwenden",
+    "signIn": "Anmelden",
+    "signUp": "Konto erstellen",
+    "noAccount": "Noch kein Konto? Jetzt erstellen",
+    "haveAccount": "Schon ein Konto? Anmelden",
+    "confirmEmail": "Fast geschafft: Bestätige deine E-Mail über den Link, den wir an {email} geschickt haben.",
+    "signingIn": "Du wirst angemeldet …",
+    "callbackFailed": "Dieser Anmeldelink funktioniert nicht",
+    "callbackFailedText": "Er ist vielleicht abgelaufen oder wurde schon benutzt. Fordere einen neuen an.",
+    "backToLogin": "Zurück zur Anmeldung",
+    "signOut": "Abmelden",
+    "errors": {
+      "invalid_credentials": "E-Mail oder Passwort ist falsch.",
+      "email_not_confirmed": "Bitte bestätige zuerst deine E-Mail-Adresse.",
+      "user_already_exists": "Mit dieser E-Mail gibt es schon ein Konto. Melde dich stattdessen an.",
+      "weak_password": "Wähle ein stärkeres Passwort (mindestens 8 Zeichen).",
+      "over_email_send_rate_limit": "Zu viele E-Mails gesendet. Warte eine Minute und versuche es erneut.",
+      "over_request_rate_limit": "Zu viele Versuche. Warte eine Minute und versuche es erneut.",
+      "provider_disabled": "Diese Anmeldemethode ist noch nicht verfügbar.",
+      "email_address_invalid": "Diese E-Mail-Adresse ist ungültig."
+    }
+  },
+  "workspaces": {
+    "title": "Deine Workspaces",
+    "emptyTitle": "Du bist noch in keinem Workspace",
+    "emptyText": "Frag deine Schule oder dein Studio nach einem Einladungslink oder Beitrittscode."
+  },
+  "home": {
+    "greeting": "Hallo!",
+    "greetingName": "Hallo {name}!",
+    "nextEvents": "Nächste Termine",
+    "noEventsTitle": "Noch keine Termine",
+    "noEventsText": "Hier erscheinen deine nächsten Kurse und Termine.",
+    "messages": "Nachrichten",
+    "noMessagesTitle": "Keine neuen Nachrichten",
+    "noAccessTitle": "Workspace nicht gefunden",
+    "noAccessText": "Er existiert nicht oder deine Mitgliedschaft ist noch nicht aktiv."
+  },
+  "me": {
+    "title": "Profil",
+    "profile": "Deine Angaben",
+    "language": "Sprache",
+    "notifications": "Benachrichtigungen",
+    "notifyPush": "Push-Benachrichtigungen",
+    "notifyEmail": "E-Mail-Benachrichtigungen",
+    "workspaces": "Meine Workspaces",
+    "saved": "Gespeichert"
+  },
+  "placeholder": { "title": "Demnächst", "text": "Dieser Teil von BounceWith ist noch im Aufbau." },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Der Link ist vielleicht falsch oder veraltet.",
+    "back": "Zu meinen Workspaces"
+  }
+}
