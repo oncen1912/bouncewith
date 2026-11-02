@@ -152,10 +152,10 @@ end $$;
 
 -- What the join page shows before joining. Nothing for an unknown code.
 create or replace function public.workspace_preview(p_code text)
-returns table (name text, type public.workspace_type, logo_url text, accent_color text,
+returns table (slug text, name text, type public.workspace_type, logo_url text, accent_color text,
                require_approval boolean, my_status public.membership_status)
 language sql stable security definer set search_path = public as $$
-  select w.name, w.type, w.logo_url, w.accent_color, w.require_approval, m.status
+  select w.slug, w.name, w.type, w.logo_url, w.accent_color, w.require_approval, m.status
   from workspaces w
   left join memberships m on m.workspace_id = w.id and m.user_id = auth.uid()
   where auth.uid() is not null and w.join_code = upper(trim(p_code));

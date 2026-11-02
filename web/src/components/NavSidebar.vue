@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import type { NavItem } from './nav'
+import WorkspaceAvatar from './WorkspaceAvatar.vue'
 
-defineProps<{ items: NavItem[]; title?: string }>()
+defineProps<{
+  items: NavItem[]
+  workspace: { name: string; logo_url: string | null; accent_color: string | null } | null
+}>()
 const { t } = useI18n()
 </script>
 
@@ -12,7 +16,12 @@ const { t } = useI18n()
       <span class="bw-logo" aria-hidden="true"></span>
       BounceWith
     </RouterLink>
-    <p v-if="title" class="bw-ws-name text-truncate" :title="title">{{ title }}</p>
+    <RouterLink v-if="workspace" :to="{ name: 'workspaces' }" class="bw-ws" :title="t('nav.switchWorkspace')">
+      <WorkspaceAvatar :workspace="workspace" size="32" />
+      <span class="text-truncate">{{ workspace.name }}</span>
+      <i class="bi bi-chevron-expand ms-auto" aria-hidden="true"></i>
+      <span class="visually-hidden">{{ t('nav.switchWorkspace') }}</span>
+    </RouterLink>
     <nav :aria-label="t('nav.main')">
       <ul class="list-unstyled m-0">
         <li v-for="item in items" :key="item.labelKey">
@@ -61,10 +70,27 @@ const { t } = useI18n()
   background: radial-gradient(circle, var(--bw-pink) 0 35%, var(--bw-accent) 36%);
 }
 
-.bw-ws-name {
-  color: var(--bw-text-muted);
-  font-size: 0.875rem;
-  margin: 0 0 0.5rem;
+.bw-ws {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--bw-border);
+  border-radius: var(--bw-radius);
+  color: var(--bw-text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.bw-ws:hover {
+  background: var(--bw-bg-3);
+}
+
+.bw-ws:focus-visible {
+  outline: 2px solid var(--bw-accent);
+  outline-offset: 2px;
 }
 
 .bw-side-link {

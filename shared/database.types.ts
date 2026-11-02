@@ -1144,6 +1144,7 @@ export type Database = {
           my_status: Database['public']['Enums']['membership_status']
           name: string
           require_approval: boolean
+          slug: string
           type: Database['public']['Enums']['workspace_type']
         }[]
       }

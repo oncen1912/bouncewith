@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/features/auth/store'
+import { useWorkspaceStore } from '@/features/workspace/store'
+import { hasRole, type Role } from '@/features/workspace/types'
 import { safeRedirect } from './redirect'
 import AppShell from '@/components/AppShell.vue'
 
@@ -11,6 +13,8 @@ declare module 'vue-router' {
     guestOnly?: boolean
     /** i18n key for placeholder screens and the document title */
     titleKey?: string
+    /** Minimum workspace role (UX only: RLS and the RPCs enforce the real rules) */
+    minRole?: Role
   }
 }
 
@@ -39,6 +43,12 @@ const routes: RouteRecordRaw[] = [
         name: 'workspaces',
         component: () => import('@/features/workspace/WorkspacePickerView.vue'),
       },
+      {
+        path: 'w/new',
+        name: 'workspace-new',
+        component: () => import('@/features/workspace/CreateWorkspaceView.vue'),
+      },
+      { path: 'join/:code', name: 'join', component: () => import('@/features/workspace/JoinView.vue') },
       { path: 'me', name: 'me', component: () => import('@/features/auth/MeView.vue') },
       {
         path: 'w/:slug',
@@ -51,6 +61,19 @@ const routes: RouteRecordRaw[] = [
             name: 'assistant',
             component: Placeholder,
             meta: { titleKey: 'nav.assistant' },
+          },
+          { path: 'more', name: 'more', component: () => import('@/features/workspace/MoreView.vue') },
+          {
+            path: 'members',
+            name: 'members',
+            component: () => import('@/features/members/MembersView.vue'),
+            meta: { minRole: 'trainer' },
+          },
+          {
+            path: 'settings',
+            name: 'settings',
+            component: () => import('@/features/workspace/settings/SettingsView.vue'),
+            meta: { minRole: 'owner' },
           },
         ],
       },
@@ -79,5 +102,11 @@ router.beforeEach(async (to) => {
   }
   if (to.meta.guestOnly && auth.isAuthenticated) {
     return safeRedirect(to.query.redirect)
+  }
+  const slug = to.params.slug
+  if (to.meta.minRole && typeof slug === 'string') {
+    const workspaces = useWorkspaceStore()
+    await workspaces.selectBySlug(slug).catch(() => undefined)
+    if (!hasRole(workspaces.role, to.meta.minRole)) return { name: 'home', params: { slug } }
   }
 })

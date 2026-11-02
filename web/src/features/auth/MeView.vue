@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
-import { useWorkspaceStore } from '@/features/workspace/store'
+import DeleteAccountCard from './components/DeleteAccountCard.vue'
+import MyWorkspacesCard from './components/MyWorkspacesCard.vue'
 import LanguageSelect from './components/LanguageSelect.vue'
 import { useAuthStore } from './store'
 import type { AppLocale } from '@/app/locale'
@@ -11,7 +12,6 @@ import type { AppLocale } from '@/app/locale'
 const { t } = useI18n()
 const router = useRouter()
 const auth = useAuthStore()
-const workspaces = useWorkspaceStore()
 
 const fullName = ref('')
 const savingName = ref(false)
@@ -21,8 +21,6 @@ watch(
   (name) => (fullName.value = name ?? ''),
   { immediate: true },
 )
-
-onMounted(() => void workspaces.load().catch(() => undefined))
 
 async function save(patch: Parameters<typeof auth.saveProfile>[0], okKey = 'me.saved') {
   try {
@@ -105,25 +103,11 @@ async function signOut() {
     </div>
   </section>
 
-  <section class="card card-body mb-3" aria-labelledby="me-ws">
-    <h2 id="me-ws" class="h5">{{ t('me.workspaces') }}</h2>
-    <p v-if="workspaces.loaded && workspaces.mine.length === 0" class="text-muted mb-0">
-      {{ t('workspaces.emptyTitle') }}
-    </p>
-    <ul v-else class="list-unstyled m-0">
-      <li v-for="ws in workspaces.mine" :key="ws.id">
-        <RouterLink
-          :to="{ name: 'home', params: { slug: ws.slug } }"
-          class="d-flex py-2 gap-2 align-items-center"
-        >
-          <span class="flex-grow-1">{{ ws.name }}</span>
-          <span class="small text-muted">{{ t(`roles.${ws.role}`) }}</span>
-        </RouterLink>
-      </li>
-    </ul>
-  </section>
+  <MyWorkspacesCard />
 
-  <button type="button" class="btn btn-outline-danger w-100" @click="signOut">
+  <button type="button" class="btn btn-outline-light w-100 mb-3" @click="signOut">
     <i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i>{{ t('auth.signOut') }}
   </button>
+
+  <DeleteAccountCard />
 </template>

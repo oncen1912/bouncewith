@@ -253,12 +253,12 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - **Done when:** a seeded user logs in on the deployed URL and sees the empty home; CI is green.
 
 ### M1 — Workspaces and members
-- [ ] RPCs §5.1 + pgTAP
-- [ ] Create workspace, workspace picker, switcher
-- [ ] Join by code, link and QR; pending approvals list
-- [ ] Members list, roles, groups CRUD
-- [ ] Settings: general, branding (logo upload to Storage, accent colour), timezone, approval toggle
-- **Done when:** a second user joins by QR, is approved, and only sees that workspace.
+- [x] RPCs §5.1 + pgTAP
+- [x] Create workspace, workspace picker, switcher
+- [x] Join by code, link and QR; pending approvals list
+- [x] Members list, roles, groups CRUD
+- [x] Settings: general, branding (logo upload to Storage, accent colour), timezone, approval toggle
+- **Done when:** a second user joins by QR, is approved, and only sees that workspace. ✅ e2e `web/e2e/join.spec.ts` (local)
 
 ### M2 — Events
 - [ ] Event form (one-off + weekly series), `expand_series()`, cron to extend series
@@ -326,3 +326,13 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - 2026-11-02 · M0 · The cloud project gets no seed data. `npm run demo:create` (secret key from the gitignored `.env.cloud`, run locally) creates workspace `demo` with a demo owner and member; the deploy workflow's `verify` job signs in as the demo member on app.bouncewith.me.
 - 2026-11-02 · M0 · Hosting stays at app.bouncewith.me. The server runs Caddy (energizug uses `*.energizug.bouncewith.me`, the website uses `bouncewith.me`). The deploy folder `/var/www/app.bouncewith.me` is fixed in the workflow, not a secret, so `rsync --delete` can't hit another site.
 - 2026-11-02 · M0 · The deploy workflow runs `supabase db push --linked` with only the access token (temporary login role), no database password secret.
+- 2026-11-02 · M1 · Extra RPCs beyond §5.1: `leave_workspace`, `my_memberships` (includes pending requests, which the workspaces table hides), `workspace_members` (trainer-only, includes e-mail so trainers recognise join requests), `workspace_preview` (join page) and `delete_my_account`.
+- 2026-11-02 · M1 · Account deletion is a SQL RPC (`delete_my_account`, confirmed by typing the own e-mail), not an Edge Function. It refuses while the user is the last owner of a workspace. FKs cascade or anonymise as §11 requires.
+- 2026-11-02 · M1 · Internal SQL helpers live in schema `private`, which the API roles can't reach.
+- 2026-11-02 · M1 · Owners may update settings columns only (column grants). `slug` is fixed after creation; `join_code` changes only via `regenerate_join_code`. Profiles: users update their preference columns only.
+- 2026-11-02 · M1 · Join codes: 8 characters from an alphabet without look-alikes (no 0/O/1/I/L). Seed codes are unchanged.
+- 2026-11-02 · M1 · Slugs: reserved route names refused; at most 20 workspaces created per user.
+- 2026-11-02 · M1 · `group_members` has composite FKs to `groups` and `memberships` of the same workspace (no cross-workspace rows; removed members leave their groups). A group used by upcoming scheduled events can't be deleted (`group_in_use`).
+- 2026-11-02 · M1 · Remove = membership deleted (can re-join with the code); block = status `blocked` (can't re-join; approve unblocks). Trainers can block/remove members and other trainers; only owners act on owners.
+- 2026-11-02 · M1 · Logos: public bucket `workspace-logos`, path `{workspace_id}/…`, owner-only write, PNG/JPG/WebP up to 1 MB (no SVG).
+- 2026-11-02 · M1 · Phones keep five tabs; Members (trainer) and Settings (owner) are on the "More" page. The desktop sidebar lists them directly. A workspace switcher sits in the sidebar and in the phone top bar.

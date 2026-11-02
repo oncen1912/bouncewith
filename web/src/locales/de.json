@@ -1,8 +1,43 @@
 {
-  "common": { "loading": "Wird geladen …", "save": "Speichern" },
-  "errors": { "generic": "Etwas ist schiefgelaufen. Bitte versuche es noch einmal." },
-  "languages": { "en": "English", "sl": "Slovenščina", "de": "Deutsch" },
-  "roles": { "owner": "Inhaber:in", "trainer": "Trainer:in", "member": "Mitglied" },
+  "common": {
+    "loading": "Wird geladen …",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "close": "Schliessen",
+    "delete": "Löschen"
+  },
+  "errors": {
+    "generic": "Etwas ist schiefgelaufen. Bitte versuche es noch einmal.",
+    "duplicate": "Das gibt es schon.",
+    "codes": {
+      "not_authenticated": "Bitte melde dich erneut an.",
+      "forbidden": "Dafür fehlt dir die Berechtigung.",
+      "not_found": "Nicht gefunden. Vielleicht wurde es entfernt.",
+      "not_active": "Dieses Mitglied ist noch nicht aktiv.",
+      "name_invalid": "Der Name braucht 2 bis 80 Zeichen.",
+      "slug_invalid": "Verwende 3–40 Kleinbuchstaben, Ziffern oder Bindestriche, beginnend mit Buchstabe oder Ziffer.",
+      "slug_reserved": "Diese Adresse ist reserviert. Bitte wähle eine andere.",
+      "slug_taken": "Diese Adresse ist schon vergeben.",
+      "timezone_invalid": "Unbekannte Zeitzone.",
+      "workspace_limit": "Du hast die maximale Anzahl Workspaces erreicht.",
+      "invalid_code": "Diesen Code gibt es nicht. Prüfe ihn oder frag nach einem neuen.",
+      "blocked": "Du kannst diesem Workspace nicht beitreten. Wende dich an die Organisatoren.",
+      "cannot_target_self": "Das kannst du nicht bei dir selbst tun.",
+      "last_owner": "Ein Workspace braucht mindestens eine:n Inhaber:in. Ernenne zuerst jemand anderen.",
+      "group_in_use": "Kommende Termine nutzen diese Gruppe. Ändere zuerst diese Termine.",
+      "confirm_mismatch": "Die eingegebene E-Mail passt nicht zu deinem Konto."
+    }
+  },
+  "languages": {
+    "en": "English",
+    "sl": "Slovenščina",
+    "de": "Deutsch"
+  },
+  "roles": {
+    "owner": "Inhaber:in",
+    "trainer": "Trainer:in",
+    "member": "Mitglied"
+  },
   "nav": {
     "main": "Hauptnavigation",
     "skipToContent": "Zum Inhalt springen",
@@ -12,7 +47,10 @@
     "events": "Termine",
     "inbox": "Nachrichten",
     "assistant": "Assistent",
-    "more": "Mehr"
+    "more": "Mehr",
+    "members": "Mitglieder",
+    "settings": "Einstellungen",
+    "switchWorkspace": "Workspace wechseln"
   },
   "auth": {
     "title": "Willkommen bei BounceWith",
@@ -51,7 +89,12 @@
   "workspaces": {
     "title": "Deine Workspaces",
     "emptyTitle": "Du bist noch in keinem Workspace",
-    "emptyText": "Frag deine Schule oder dein Studio nach einem Einladungslink oder Beitrittscode."
+    "emptyText": "Frag deine Schule oder dein Studio nach einem Einladungslink oder Beitrittscode.",
+    "create": "Neuer Workspace",
+    "pending": "Wartet auf Freigabe",
+    "joinTitle": "Mit Code beitreten",
+    "joinText": "Hast du einen Code von deiner Schule oder deinem Studio? Gib ihn hier ein.",
+    "join": "Beitreten"
   },
   "home": {
     "greeting": "Hallo!",
@@ -62,7 +105,9 @@
     "messages": "Nachrichten",
     "noMessagesTitle": "Keine neuen Nachrichten",
     "noAccessTitle": "Workspace nicht gefunden",
-    "noAccessText": "Er existiert nicht oder deine Mitgliedschaft ist noch nicht aktiv."
+    "noAccessText": "Er existiert nicht oder deine Mitgliedschaft ist noch nicht aktiv.",
+    "pendingTitle": "Warten auf Freigabe bei {name}",
+    "pendingText": "Sobald deine Anfrage freigegeben ist, siehst du hier die Termine."
   },
   "me": {
     "title": "Profil",
@@ -72,12 +117,111 @@
     "notifyPush": "Push-Benachrichtigungen",
     "notifyEmail": "E-Mail-Benachrichtigungen",
     "workspaces": "Meine Workspaces",
-    "saved": "Gespeichert"
+    "saved": "Gespeichert",
+    "leave": "Verlassen",
+    "withdraw": "Zurückziehen",
+    "left": "Du hast {name} verlassen",
+    "leaveTitle": "{name} verlassen?",
+    "leaveText": "Du verlierst den Zugang zu Terminen und Nachrichten. Mit dem Code kannst du wieder beitreten.",
+    "deleteTitle": "Konto löschen",
+    "deleteText": "Löscht dein Profil, deine Mitgliedschaften und Antworten. Die Anwesenheitshistorie der Workspaces bleibt, ohne deinen Namen als Bearbeiter:in.",
+    "deleteBlocked": "Du bist einzige:r Inhaber:in von {names}. Ernenne zuerst jemand anderen.",
+    "deleteConfirm": "Das kann nicht rückgängig gemacht werden.",
+    "deleteType": "Gib zur Bestätigung {email} ein",
+    "deleteForever": "Mein Konto löschen",
+    "deleted": "Dein Konto wurde gelöscht"
   },
-  "placeholder": { "title": "Demnächst", "text": "Dieser Teil von BounceWith ist noch im Aufbau." },
+  "placeholder": {
+    "title": "Demnächst",
+    "text": "Dieser Teil von BounceWith ist noch im Aufbau."
+  },
   "notFound": {
     "title": "Seite nicht gefunden",
     "text": "Der Link ist vielleicht falsch oder veraltet.",
     "back": "Zu meinen Workspaces"
+  },
+  "workspaceTypes": {
+    "dance": "Tanzschule",
+    "fitness": "Fitnessstudio",
+    "yoga": "Yoga",
+    "other": "Andere"
+  },
+  "createWorkspace": {
+    "title": "Workspace erstellen",
+    "slug": "Webadresse",
+    "slugHelp": "Wird in Links verwendet, z. B. app.bouncewith.me/w/niko-dance. Kann später nicht geändert werden.",
+    "submit": "Workspace erstellen",
+    "created": "Workspace erstellt"
+  },
+  "settings": {
+    "general": "Allgemein",
+    "name": "Name",
+    "type": "Art",
+    "timezone": "Zeitzone",
+    "requireApproval": "Neue Mitglieder brauchen eine Freigabe",
+    "requireApprovalHelp": "Wenn aktiv, warten Personen, die mit dem Code beitreten, bis ein:e Trainer:in sie freigibt.",
+    "allowSelfAbsence": "Mitglieder dürfen sich selbst abmelden",
+    "allowSelfAbsenceHelp": "Erlaubt Mitgliedern, bei Terminen »Kann nicht« zu antworten.",
+    "branding": "Erscheinungsbild",
+    "uploadLogo": "Logo hochladen",
+    "removeLogo": "Entfernen",
+    "logoHelp": "PNG, JPG oder WebP, bis 1 MB. Quadratische Bilder sehen am besten aus.",
+    "logo_type": "Bitte wähle ein PNG-, JPG- oder WebP-Bild.",
+    "logo_size": "Das Bild ist grösser als 1 MB.",
+    "accent": "Akzentfarbe",
+    "customColor": "Eigene Farbe",
+    "invite": "Mitglieder einladen",
+    "inviteHelp": "Teile den Link oder lass den QR-Code scannen. Wer den Code hat, kann beitreten.",
+    "qrLabel": "QR-Code mit dem Einladungslink",
+    "downloadQr": "QR herunterladen",
+    "joinCode": "Beitrittscode",
+    "copyLink": "Link kopieren",
+    "copyCode": "Code kopieren",
+    "copied": "Kopiert",
+    "regenerate": "Neuer Code",
+    "regenerateConfirm": "Der aktuelle Code, Link und QR-Code funktionieren sofort nicht mehr. Bereits beigetretene Mitglieder sind nicht betroffen.",
+    "codeRegenerated": "Neuer Beitrittscode erstellt"
+  },
+  "join": {
+    "welcome": "Willkommen bei {name}!",
+    "invalidTitle": "Diese Einladung funktioniert nicht",
+    "invalidText": "Der Code ist vielleicht falsch oder wurde ersetzt. Frag nach einem neuen Link.",
+    "pending": "Deine Anfrage ist verschickt. Du erhältst Zugang, sobald {name} sie freigibt.",
+    "needsApproval": "Neue Mitglieder werden von einer Trainerin oder einem Trainer freigegeben.",
+    "submit": "{name} beitreten"
+  },
+  "members": {
+    "view": "Anzeige",
+    "groups": "Gruppen",
+    "noName": "Noch kein Name",
+    "pendingTitle": "Warten auf Freigabe ({n})",
+    "approve": "Freigeben",
+    "decline": "Ablehnen",
+    "approved": "{name} ist jetzt Mitglied",
+    "declined": "Anfrage abgelehnt",
+    "search": "Nach Name oder E-Mail suchen",
+    "showBlocked": "Gesperrte anzeigen ({n})",
+    "noneFound": "Keine Mitglieder gefunden",
+    "role": "Rolle",
+    "ownerWarning": "Inhaber:innen können Einstellungen, Rollen und Integrationen ändern.",
+    "blockedInfo": "Diese Person ist gesperrt, sieht den Workspace nicht und kann nicht erneut beitreten.",
+    "unblock": "Entsperren",
+    "block": "Sperren",
+    "remove": "Entfernen",
+    "blockHelp": "Entfernte können mit dem Code wieder beitreten, gesperrte nicht.",
+    "removeConfirm": "{name} aus diesem Workspace entfernen?",
+    "blocked": "{name} ist gesperrt",
+    "unblocked": "{name} ist entsperrt",
+    "removed": "{name} wurde entfernt",
+    "newGroup": "Name der neuen Gruppe",
+    "addGroup": "Hinzufügen",
+    "noGroups": "Noch keine Gruppen",
+    "noGroupsText": "Mit Gruppen wie »Juniors« kannst du Termine und Nachrichten gezielt verschicken.",
+    "groupCount": "Mitglieder: {n}",
+    "groupName": "Gruppenname",
+    "groupMembers": "Mitglieder ({n})",
+    "deleteGroup": "Gruppe löschen",
+    "deleteGroupConfirm": "Diese Gruppe löschen? Die Mitglieder bleiben im Workspace.",
+    "groupDeleted": "Gruppe gelöscht"
   }
 }
