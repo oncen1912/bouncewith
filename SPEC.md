@@ -244,12 +244,12 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 
 ### M0 — Foundation
 - [x] npm workspaces (`web`, `widget`, `shared`), TypeScript strict, ESLint + Prettier, Vitest, Playwright
-- [ ] Supabase project (EU) + local `supabase start`; add the init migration; `npm run db:types` — local done; cloud project pending
+- [x] Supabase project (EU) + local `supabase start`; add the init migration; `npm run db:types` — cloud: `opfanxmublhjxyjgyjqu`, Zurich
 - [x] Convert `supabase/tests/manual/rls_smoke.sql` into pgTAP tests (`supabase/tests/rls.test.sql`)
 - [x] `seed.sql`: workspace `niko-dance`, 1 owner, 1 trainer, 6 members, group Juniors, 4 upcoming events
 - [x] Web shell: router, i18n (en/sl/de), layout (tab bar / sidebar), dark theme tokens, vue-sonner
 - [ ] Auth: magic link, email + password, Google; `/me` page — magic link, password and `/me` done and e2e-tested locally; Google is wired but needs OAuth credentials in the cloud project
-- [ ] CI workflow; deploy workflow to Exoscale (`app.bouncewith.me`) on tags — written; not yet run (no GitHub remote, secrets not set)
+- [ ] CI workflow; deploy workflow to Exoscale (`app.bouncewith.me`) on tags — CI green on PR #1; deploy waits for production secrets + server
 - **Done when:** a seeded user logs in on the deployed URL and sees the empty home; CI is green.
 
 ### M1 — Workspaces and members
