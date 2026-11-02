@@ -249,8 +249,8 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - [x] `seed.sql`: workspace `niko-dance`, 1 owner, 1 trainer, 6 members, group Juniors, 4 upcoming events
 - [x] Web shell: router, i18n (en/sl/de), layout (tab bar / sidebar), dark theme tokens, vue-sonner
 - [ ] Auth: magic link, email + password, Google; `/me` page — magic link, password and `/me` done and e2e-tested locally; Google is wired but needs OAuth credentials in the cloud project
-- [ ] CI workflow; deploy workflow to Exoscale (`app.bouncewith.me`) on tags — CI green on PR #1; deploy waits for production secrets + server
-- **Done when:** a seeded user logs in on the deployed URL and sees the empty home; CI is green.
+- [x] CI workflow; deploy workflow to Exoscale (`app.bouncewith.me`) on tags — v0.1.1 deployed 2 Nov 2026
+- **Done when:** a seeded user logs in on the deployed URL and sees the empty home; CI is green. ✅ 2 Nov 2026 (demo member, phone + desktop)
 
 ### M1 — Workspaces and members
 - [x] RPCs §5.1 + pgTAP
@@ -326,6 +326,7 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - 2026-11-02 · M0 · The cloud project gets no seed data. `npm run demo:create` (secret key from the gitignored `.env.cloud`, run locally) creates workspace `demo` with a demo owner and member; the deploy workflow's `verify` job signs in as the demo member on app.bouncewith.me.
 - 2026-11-02 · M0 · Hosting stays at app.bouncewith.me. The server runs Caddy (energizug uses `*.energizug.bouncewith.me`, the website uses `bouncewith.me`). The deploy folder `/var/www/app.bouncewith.me` is fixed in the workflow, not a secret, so `rsync --delete` can't hit another site.
 - 2026-11-02 · M0 · The deploy workflow runs `supabase db push --linked` with only the access token (temporary login role), no database password secret.
+- 2026-11-02 · M0 · The Supabase access token used by deploy is limited to the bouncewith project and expires around June 2027; renew it before then.
 - 2026-11-02 · M1 · Extra RPCs beyond §5.1: `leave_workspace`, `my_memberships` (includes pending requests, which the workspaces table hides), `workspace_members` (trainer-only, includes e-mail so trainers recognise join requests), `workspace_preview` (join page) and `delete_my_account`.
 - 2026-11-02 · M1 · Account deletion is a SQL RPC (`delete_my_account`, confirmed by typing the own e-mail), not an Edge Function. It refuses while the user is the last owner of a workspace. FKs cascade or anonymise as §11 requires.
 - 2026-11-02 · M1 · Internal SQL helpers live in schema `private`, which the API roles can't reach.
