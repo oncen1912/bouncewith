@@ -32,7 +32,7 @@ Pushing a `v*.*.*` tag runs `.github/workflows/deploy.yml`: Playwright smoke aga
 | Secret | Value |
 | --- | --- |
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` | cloud project URL + `sb_publishable_…` key |
-| `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD` | for `supabase db push` |
+| `SUPABASE_PROJECT_REF`, `SUPABASE_ACCESS_TOKEN` | for `supabase db push` (no database password needed) |
 | `REMOTE_HOST`, `REMOTE_USER`, `SSH_PRIVATE_KEY` | Exoscale server. Files go to `/var/www/app.bouncewith.me` (fixed in the workflow); Caddy site: `deploy/Caddyfile.app.bouncewith.me` |
 | `E2E_EMAIL`, `E2E_PASSWORD` | demo member from `npm run demo:create`, used by the post-deploy smoke test |
 
