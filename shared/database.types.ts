@@ -540,6 +540,20 @@ export type Database = {
             referencedColumns: ['id']
           },
           {
+            foreignKeyName: 'group_members_group_same_ws'
+            columns: ['group_id', 'workspace_id']
+            isOneToOne: false
+            referencedRelation: 'groups'
+            referencedColumns: ['id', 'workspace_id']
+          },
+          {
+            foreignKeyName: 'group_members_membership_fk'
+            columns: ['workspace_id', 'user_id']
+            isOneToOne: false
+            referencedRelation: 'memberships'
+            referencedColumns: ['workspace_id', 'user_id']
+          },
+          {
             foreignKeyName: 'group_members_user_id_fkey'
             columns: ['user_id']
             isOneToOne: false
@@ -1067,12 +1081,73 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      approve_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
+      block_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
       can_see_conversation: { Args: { conv: string }; Returns: boolean }
       can_see_event: { Args: { ev: string }; Returns: boolean }
+      create_workspace: {
+        Args: {
+          p_name: string
+          p_slug: string
+          p_timezone?: string
+          p_type?: Database['public']['Enums']['workspace_type']
+        }
+        Returns: string
+      }
+      delete_my_account: { Args: { p_confirm_email: string }; Returns: undefined }
       in_any_group: { Args: { groups: string[] }; Returns: boolean }
       is_member: { Args: { ws: string }; Returns: boolean }
       is_owner: { Args: { ws: string }; Returns: boolean }
       is_trainer: { Args: { ws: string }; Returns: boolean }
+      join_workspace: { Args: { p_code: string }; Returns: Database['public']['Enums']['membership_status'] }
+      leave_workspace: { Args: { p_ws: string }; Returns: undefined }
+      my_memberships: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          accent_color: string
+          is_last_owner: boolean
+          logo_url: string
+          name: string
+          role: Database['public']['Enums']['member_role']
+          slug: string
+          status: Database['public']['Enums']['membership_status']
+          timezone: string
+          type: Database['public']['Enums']['workspace_type']
+          workspace_id: string
+        }[]
+      }
+      regenerate_join_code: { Args: { p_ws: string }; Returns: string }
+      remove_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
+      set_member_role: {
+        Args: { p_role: Database['public']['Enums']['member_role']; p_user: string; p_ws: string }
+        Returns: undefined
+      }
+      try_uuid: { Args: { value: string }; Returns: string }
+      workspace_members: {
+        Args: { p_ws: string }
+        Returns: {
+          avatar_url: string
+          email: string
+          full_name: string
+          group_ids: string[]
+          joined_at: string
+          role: Database['public']['Enums']['member_role']
+          status: Database['public']['Enums']['membership_status']
+          user_id: string
+        }[]
+      }
+      workspace_preview: {
+        Args: { p_code: string }
+        Returns: {
+          accent_color: string
+          logo_url: string
+          my_status: Database['public']['Enums']['membership_status']
+          name: string
+          require_approval: boolean
+          slug: string
+          type: Database['public']['Enums']['workspace_type']
+        }[]
+      }
     }
     Enums: {
       attendance_method: 'trainer' | 'qr' | 'default'

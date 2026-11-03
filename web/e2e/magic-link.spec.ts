@@ -28,5 +28,5 @@ test('magic link signs the user in and returns to the requested page', async ({ 
 
   await page.goto(link!)
   await expect(page).toHaveURL(/\/me$/)
-  await expect(page.getByText(email)).toBeVisible()
+  await expect(page.getByText(email, { exact: true })).toBeVisible()
 })

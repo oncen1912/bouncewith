@@ -1,8 +1,43 @@
 {
-  "common": { "loading": "Nalaganje …", "save": "Shrani" },
-  "errors": { "generic": "Nekaj je šlo narobe. Poskusi znova." },
-  "languages": { "en": "English", "sl": "Slovenščina", "de": "Deutsch" },
-  "roles": { "owner": "Lastnik", "trainer": "Trener", "member": "Član" },
+  "common": {
+    "loading": "Nalaganje …",
+    "save": "Shrani",
+    "cancel": "Prekliči",
+    "close": "Zapri",
+    "delete": "Izbriši"
+  },
+  "errors": {
+    "generic": "Nekaj je šlo narobe. Poskusi znova.",
+    "duplicate": "To že obstaja.",
+    "codes": {
+      "not_authenticated": "Prosimo, ponovno se prijavi.",
+      "forbidden": "Za to nimaš dovoljenja.",
+      "not_found": "Ni najdeno. Morda je bilo odstranjeno.",
+      "not_active": "Ta član še ni aktiven.",
+      "name_invalid": "Ime mora imeti od 2 do 80 znakov.",
+      "slug_invalid": "Uporabi 3–40 malih črk, številk ali pomišljajev; začni s črko ali številko.",
+      "slug_reserved": "Ta naslov je rezerviran. Izberi drugega.",
+      "slug_taken": "Ta naslov je že zaseden.",
+      "timezone_invalid": "Neznan časovni pas.",
+      "workspace_limit": "Dosegel si največje število delovnih prostorov, ki jih lahko ustvariš.",
+      "invalid_code": "Ta koda ne obstaja. Preveri jo ali prosi za novo.",
+      "blocked": "Temu delovnemu prostoru se ne moreš pridružiti. Obrni se na organizatorje.",
+      "cannot_target_self": "Tega ne moreš narediti sebi.",
+      "last_owner": "Delovni prostor potrebuje vsaj enega lastnika. Najprej določi drugega lastnika.",
+      "group_in_use": "To skupino uporabljajo prihajajoči dogodki. Najprej spremeni te dogodke.",
+      "confirm_mismatch": "Vneseni e-naslov se ne ujema s tvojim računom."
+    }
+  },
+  "languages": {
+    "en": "English",
+    "sl": "Slovenščina",
+    "de": "Deutsch"
+  },
+  "roles": {
+    "owner": "Lastnik",
+    "trainer": "Trener",
+    "member": "Član"
+  },
   "nav": {
     "main": "Glavna navigacija",
     "skipToContent": "Skoči na vsebino",
@@ -12,7 +47,10 @@
     "events": "Dogodki",
     "inbox": "Sporočila",
     "assistant": "Pomočnik",
-    "more": "Več"
+    "more": "Več",
+    "members": "Člani",
+    "settings": "Nastavitve",
+    "switchWorkspace": "Zamenjaj delovni prostor"
   },
   "auth": {
     "title": "Dobrodošli v BounceWith",
@@ -51,7 +89,12 @@
   "workspaces": {
     "title": "Tvoji delovni prostori",
     "emptyTitle": "Še nisi v nobenem delovnem prostoru",
-    "emptyText": "Prosi svojo šolo ali studio za povezavo ali kodo za pridružitev."
+    "emptyText": "Prosi svojo šolo ali studio za povezavo ali kodo za pridružitev.",
+    "create": "Nov delovni prostor",
+    "pending": "Čaka na odobritev",
+    "joinTitle": "Pridruži se s kodo",
+    "joinText": "Imaš kodo od svoje šole ali studia? Vnesi jo tukaj.",
+    "join": "Pridruži se"
   },
   "home": {
     "greeting": "Živjo!",
@@ -62,7 +105,9 @@
     "messages": "Sporočila",
     "noMessagesTitle": "Ni novih sporočil",
     "noAccessTitle": "Delovnega prostora ni mogoče najti",
-    "noAccessText": "Ne obstaja ali pa tvoje članstvo še ni aktivno."
+    "noAccessText": "Ne obstaja ali pa tvoje članstvo še ni aktivno.",
+    "pendingTitle": "Čakanje na odobritev v {name}",
+    "pendingText": "Dogodke boš videl tukaj, ko trener odobri tvojo prošnjo."
   },
   "me": {
     "title": "Profil",
@@ -72,12 +117,111 @@
     "notifyPush": "Potisna obvestila",
     "notifyEmail": "Obvestila po e-pošti",
     "workspaces": "Moji delovni prostori",
-    "saved": "Shranjeno"
+    "saved": "Shranjeno",
+    "leave": "Zapusti",
+    "withdraw": "Umakni",
+    "left": "Zapustil si {name}",
+    "leaveTitle": "Zapustim {name}?",
+    "leaveText": "Izgubil boš dostop do dogodkov in sporočil. S kodo se lahko znova pridružiš.",
+    "deleteTitle": "Izbriši račun",
+    "deleteText": "Izbriše tvoj profil, članstva in odgovore. Zgodovina prisotnosti v delovnih prostorih ostane, a brez tvojega imena kot urednika.",
+    "deleteBlocked": "Si edini lastnik: {names}. Najprej določi drugega lastnika.",
+    "deleteConfirm": "Tega ni mogoče razveljaviti.",
+    "deleteType": "Za potrditev vpiši {email}",
+    "deleteForever": "Izbriši moj račun",
+    "deleted": "Tvoj račun je izbrisan"
   },
-  "placeholder": { "title": "Kmalu", "text": "Ta del aplikacije BounceWith je še v izdelavi." },
+  "placeholder": {
+    "title": "Kmalu",
+    "text": "Ta del aplikacije BounceWith je še v izdelavi."
+  },
   "notFound": {
     "title": "Strani ni mogoče najti",
     "text": "Povezava je morda napačna ali zastarela.",
     "back": "Na moje delovne prostore"
+  },
+  "workspaceTypes": {
+    "dance": "Plesna šola",
+    "fitness": "Fitnes studio",
+    "yoga": "Joga",
+    "other": "Drugo"
+  },
+  "createWorkspace": {
+    "title": "Ustvari delovni prostor",
+    "slug": "Spletni naslov",
+    "slugHelp": "Uporablja se v povezavah, npr. app.bouncewith.me/w/niko-dance. Kasneje ga ni mogoče spremeniti.",
+    "submit": "Ustvari delovni prostor",
+    "created": "Delovni prostor je ustvarjen"
+  },
+  "settings": {
+    "general": "Splošno",
+    "name": "Ime",
+    "type": "Vrsta",
+    "timezone": "Časovni pas",
+    "requireApproval": "Novi člani potrebujejo odobritev",
+    "requireApprovalHelp": "Ko je vklopljeno, ljudje, ki se pridružijo s kodo, počakajo, da jih trener odobri.",
+    "allowSelfAbsence": "Člani lahko sami javijo odsotnost",
+    "allowSelfAbsenceHelp": "Članom omogoči odgovor »Ne morem priti« na dogodke.",
+    "branding": "Celostna podoba",
+    "uploadLogo": "Naloži logotip",
+    "removeLogo": "Odstrani",
+    "logoHelp": "PNG, JPG ali WebP, do 1 MB. Najlepše izgledajo kvadratne slike.",
+    "logo_type": "Izberi sliko PNG, JPG ali WebP.",
+    "logo_size": "Slika je večja od 1 MB.",
+    "accent": "Barva poudarka",
+    "customColor": "Barva po meri",
+    "invite": "Povabi člane",
+    "inviteHelp": "Deli povezavo ali naj ljudje skenirajo kodo QR. Vsak s kodo lahko zaprosi za pridružitev.",
+    "qrLabel": "Koda QR s povezavo za povabilo",
+    "downloadQr": "Prenesi QR",
+    "joinCode": "Koda za pridružitev",
+    "copyLink": "Kopiraj povezavo",
+    "copyCode": "Kopiraj kodo",
+    "copied": "Kopirano",
+    "regenerate": "Nova koda",
+    "regenerateConfirm": "Trenutna koda, povezava in koda QR takoj prenehajo delovati. To ne vpliva na člane, ki so se že pridružili.",
+    "codeRegenerated": "Ustvarjena je nova koda za pridružitev"
+  },
+  "join": {
+    "welcome": "Dobrodošel v {name}!",
+    "invalidTitle": "To povabilo ne deluje",
+    "invalidText": "Koda je morda napačna ali pa je bila zamenjana z novo. Prosi za novo povezavo.",
+    "pending": "Tvoja prošnja je poslana. Dostop dobiš, ko jo v {name} odobrijo.",
+    "needsApproval": "Trener odobri nove člane, preden dobijo dostop.",
+    "submit": "Pridruži se: {name}"
+  },
+  "members": {
+    "view": "Prikaz",
+    "groups": "Skupine",
+    "noName": "Še brez imena",
+    "pendingTitle": "Čakajo na odobritev ({n})",
+    "approve": "Odobri",
+    "decline": "Zavrni",
+    "approved": "{name} je zdaj član",
+    "declined": "Prošnja je zavrnjena",
+    "search": "Išči po imenu ali e-naslovu",
+    "showBlocked": "Pokaži blokirane ({n})",
+    "noneFound": "Ni najdenih članov",
+    "role": "Vloga",
+    "ownerWarning": "Lastniki lahko spreminjajo nastavitve, vloge in integracije.",
+    "blockedInfo": "Ta oseba je blokirana in ne vidi delovnega prostora ter se ne more znova pridružiti.",
+    "unblock": "Odblokiraj",
+    "block": "Blokiraj",
+    "remove": "Odstrani",
+    "blockHelp": "Odstranjeni se lahko s kodo znova pridružijo, blokirani ne.",
+    "removeConfirm": "Odstranim {name} iz tega delovnega prostora?",
+    "blocked": "{name} je blokiran",
+    "unblocked": "{name} je odblokiran",
+    "removed": "{name} je odstranjen",
+    "newGroup": "Ime nove skupine",
+    "addGroup": "Dodaj",
+    "noGroups": "Še ni skupin",
+    "noGroupsText": "S skupinami, kot je »Mladinci«, lahko ciljaš dogodke in sporočila.",
+    "groupCount": "Člani: {n}",
+    "groupName": "Ime skupine",
+    "groupMembers": "Člani ({n})",
+    "deleteGroup": "Izbriši skupino",
+    "deleteGroupConfirm": "Izbrišem to skupino? Člani ostanejo v delovnem prostoru.",
+    "groupDeleted": "Skupina je izbrisana"
   }
 }

@@ -1,8 +1,43 @@
 {
-  "common": { "loading": "Loading…", "save": "Save" },
-  "errors": { "generic": "Something went wrong. Please try again." },
-  "languages": { "en": "English", "sl": "Slovenščina", "de": "Deutsch" },
-  "roles": { "owner": "Owner", "trainer": "Trainer", "member": "Member" },
+  "common": {
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "delete": "Delete"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "duplicate": "That already exists.",
+    "codes": {
+      "not_authenticated": "Please sign in again.",
+      "forbidden": "You don't have permission to do that.",
+      "not_found": "Not found. It may have been removed.",
+      "not_active": "This member isn't active yet.",
+      "name_invalid": "The name needs between 2 and 80 characters.",
+      "slug_invalid": "Use 3–40 lowercase letters, numbers or dashes, starting with a letter or number.",
+      "slug_reserved": "This address is reserved. Please choose another.",
+      "slug_taken": "This address is already taken.",
+      "timezone_invalid": "Unknown timezone.",
+      "workspace_limit": "You've reached the limit of workspaces you can create.",
+      "invalid_code": "This join code doesn't exist. Check it or ask for a new one.",
+      "blocked": "You can't join this workspace. Contact the organisers.",
+      "cannot_target_self": "You can't do this to yourself.",
+      "last_owner": "A workspace needs at least one owner. Make someone else owner first.",
+      "group_in_use": "Upcoming events use this group. Change those events first.",
+      "confirm_mismatch": "The e-mail you typed doesn't match your account."
+    }
+  },
+  "languages": {
+    "en": "English",
+    "sl": "Slovenščina",
+    "de": "Deutsch"
+  },
+  "roles": {
+    "owner": "Owner",
+    "trainer": "Trainer",
+    "member": "Member"
+  },
   "nav": {
     "main": "Main navigation",
     "skipToContent": "Skip to content",
@@ -12,7 +47,10 @@
     "events": "Events",
     "inbox": "Inbox",
     "assistant": "Assistant",
-    "more": "More"
+    "more": "More",
+    "members": "Members",
+    "settings": "Settings",
+    "switchWorkspace": "Switch workspace"
   },
   "auth": {
     "title": "Welcome to BounceWith",
@@ -51,7 +89,12 @@
   "workspaces": {
     "title": "Your workspaces",
     "emptyTitle": "You're not in a workspace yet",
-    "emptyText": "Ask your school or studio for an invite link or join code."
+    "emptyText": "Ask your school or studio for an invite link or join code.",
+    "create": "New workspace",
+    "pending": "Waiting for approval",
+    "joinTitle": "Join with a code",
+    "joinText": "Got a code from your school or studio? Enter it here.",
+    "join": "Join"
   },
   "home": {
     "greeting": "Hi there!",
@@ -62,7 +105,9 @@
     "messages": "Messages",
     "noMessagesTitle": "No new messages",
     "noAccessTitle": "Workspace not found",
-    "noAccessText": "It doesn't exist, or your membership isn't active yet."
+    "noAccessText": "It doesn't exist, or your membership isn't active yet.",
+    "pendingTitle": "Waiting for approval at {name}",
+    "pendingText": "You'll see events here once a trainer approves your request."
   },
   "me": {
     "title": "Profile",
@@ -72,12 +117,111 @@
     "notifyPush": "Push notifications",
     "notifyEmail": "E-mail notifications",
     "workspaces": "My workspaces",
-    "saved": "Saved"
+    "saved": "Saved",
+    "leave": "Leave",
+    "withdraw": "Withdraw",
+    "left": "You left {name}",
+    "leaveTitle": "Leave {name}?",
+    "leaveText": "You'll lose access to its events and messages. You can join again with the code.",
+    "deleteTitle": "Delete account",
+    "deleteText": "Deletes your profile, memberships and answers. Attendance history kept by your workspaces stays, without your name as editor.",
+    "deleteBlocked": "You are the only owner of {names}. Make someone else owner first.",
+    "deleteConfirm": "This can't be undone.",
+    "deleteType": "Type {email} to confirm",
+    "deleteForever": "Delete my account",
+    "deleted": "Your account was deleted"
   },
-  "placeholder": { "title": "Coming soon", "text": "This part of BounceWith is still being built." },
+  "placeholder": {
+    "title": "Coming soon",
+    "text": "This part of BounceWith is still being built."
+  },
   "notFound": {
     "title": "Page not found",
     "text": "The link may be wrong or out of date.",
     "back": "Go to my workspaces"
+  },
+  "workspaceTypes": {
+    "dance": "Dance school",
+    "fitness": "Fitness studio",
+    "yoga": "Yoga",
+    "other": "Other"
+  },
+  "createWorkspace": {
+    "title": "Create a workspace",
+    "slug": "Web address",
+    "slugHelp": "Used in links, e.g. app.bouncewith.me/w/niko-dance. Can't be changed later.",
+    "submit": "Create workspace",
+    "created": "Workspace created"
+  },
+  "settings": {
+    "general": "General",
+    "name": "Name",
+    "type": "Type",
+    "timezone": "Timezone",
+    "requireApproval": "New members need approval",
+    "requireApprovalHelp": "When on, people who join with the code wait until a trainer approves them.",
+    "allowSelfAbsence": "Members may report their own absence",
+    "allowSelfAbsenceHelp": "Lets members answer \"Can't make it\" to events.",
+    "branding": "Branding",
+    "uploadLogo": "Upload logo",
+    "removeLogo": "Remove",
+    "logoHelp": "PNG, JPG or WebP, up to 1 MB. Square images look best.",
+    "logo_type": "Please choose a PNG, JPG or WebP image.",
+    "logo_size": "The image is larger than 1 MB.",
+    "accent": "Accent colour",
+    "customColor": "Custom colour",
+    "invite": "Invite members",
+    "inviteHelp": "Share the link or let people scan the QR code. Anyone with the code can ask to join.",
+    "qrLabel": "QR code with the invite link",
+    "downloadQr": "Download QR",
+    "joinCode": "Join code",
+    "copyLink": "Copy link",
+    "copyCode": "Copy code",
+    "copied": "Copied",
+    "regenerate": "New code",
+    "regenerateConfirm": "The current code, link and QR code stop working immediately. Members who already joined are not affected.",
+    "codeRegenerated": "New join code created"
+  },
+  "join": {
+    "welcome": "Welcome to {name}!",
+    "invalidTitle": "This invite doesn't work",
+    "invalidText": "The code may be wrong or was replaced by a new one. Ask for a new link.",
+    "pending": "Your request was sent. You'll get access as soon as someone at {name} approves it.",
+    "needsApproval": "A trainer approves new members before they get access.",
+    "submit": "Join {name}"
+  },
+  "members": {
+    "view": "Show",
+    "groups": "Groups",
+    "noName": "No name yet",
+    "pendingTitle": "Waiting for approval ({n})",
+    "approve": "Approve",
+    "decline": "Decline",
+    "approved": "{name} is now a member",
+    "declined": "Request declined",
+    "search": "Search by name or e-mail",
+    "showBlocked": "Show blocked ({n})",
+    "noneFound": "No members found",
+    "role": "Role",
+    "ownerWarning": "Owners can change settings, roles and integrations.",
+    "blockedInfo": "This person is blocked and can't see the workspace or join again.",
+    "unblock": "Unblock",
+    "block": "Block",
+    "remove": "Remove",
+    "blockHelp": "Removed people can join again with the code; blocked people can't.",
+    "removeConfirm": "Remove {name} from this workspace?",
+    "blocked": "{name} is blocked",
+    "unblocked": "{name} is unblocked",
+    "removed": "{name} was removed",
+    "newGroup": "New group name",
+    "addGroup": "Add",
+    "noGroups": "No groups yet",
+    "noGroupsText": "Groups like \"Juniors\" let you target events and messages.",
+    "groupCount": "Members: {n}",
+    "groupName": "Group name",
+    "groupMembers": "Members ({n})",
+    "deleteGroup": "Delete group",
+    "deleteGroupConfirm": "Delete this group? Members stay in the workspace.",
+    "groupDeleted": "Group deleted"
   }
 }

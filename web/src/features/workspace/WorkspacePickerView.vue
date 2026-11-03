@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
 import EmptyState from '@/components/EmptyState.vue'
+import LoadingBlock from '@/components/LoadingBlock.vue'
+import WorkspaceAvatar from '@/components/WorkspaceAvatar.vue'
 import { useWorkspaceStore } from './store'
 
 const { t } = useI18n()
+const router = useRouter()
 const workspaces = useWorkspaceStore()
 const loading = ref(true)
+const code = ref('')
 
 onMounted(async () => {
   try {
@@ -18,49 +23,75 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+function joinWithCode() {
+  const value = code.value.trim().toUpperCase()
+  if (value) void router.push({ name: 'join', params: { code: value } })
+}
 </script>
 
 <template>
-  <h1 class="h3 mb-4">{{ t('workspaces.title') }}</h1>
-
-  <div v-if="loading" class="text-center py-5" role="status">
-    <span class="spinner-border" aria-hidden="true"></span>
-    <span class="visually-hidden">{{ t('common.loading') }}</span>
+  <div class="d-flex align-items-center gap-2 mb-4">
+    <h1 class="h3 m-0 flex-grow-1">{{ t('workspaces.title') }}</h1>
+    <RouterLink :to="{ name: 'workspace-new' }" class="btn btn-primary">
+      <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>{{ t('workspaces.create') }}
+    </RouterLink>
   </div>
 
-  <EmptyState
-    v-else-if="workspaces.mine.length === 0"
-    icon="bi-people"
-    :title="t('workspaces.emptyTitle')"
-    :text="t('workspaces.emptyText')"
-  />
+  <LoadingBlock v-if="loading" />
 
-  <ul v-else class="list-unstyled d-grid gap-2 m-0">
-    <li v-for="ws in workspaces.mine" :key="ws.id">
-      <RouterLink
-        :to="{ name: 'home', params: { slug: ws.slug } }"
-        class="card card-body d-flex flex-row align-items-center gap-3 text-decoration-none"
-      >
-        <span
-          class="bw-ws-dot"
-          :style="{ background: ws.accent_color ?? 'var(--bw-accent)' }"
-          aria-hidden="true"
-        ></span>
-        <span class="flex-grow-1 min-w-0">
-          <span class="d-block fw-semibold text-body text-truncate">{{ ws.name }}</span>
-          <span class="small text-muted">{{ t(`roles.${ws.role}`) }}</span>
-        </span>
-        <i class="bi bi-chevron-right text-muted" aria-hidden="true"></i>
-      </RouterLink>
-    </li>
-  </ul>
+  <template v-else>
+    <EmptyState
+      v-if="workspaces.memberships.length === 0"
+      icon="bi-people"
+      :title="t('workspaces.emptyTitle')"
+      :text="t('workspaces.emptyText')"
+      class="mb-4"
+    />
+
+    <ul v-else class="list-unstyled d-grid gap-2 mb-4">
+      <li v-for="ws in workspaces.mine" :key="ws.workspace_id">
+        <RouterLink
+          :to="{ name: 'home', params: { slug: ws.slug } }"
+          class="card card-body d-flex flex-row align-items-center gap-3 text-decoration-none"
+        >
+          <WorkspaceAvatar :workspace="ws" />
+          <span class="flex-grow-1 min-w-0">
+            <span class="d-block fw-semibold text-body text-truncate">{{ ws.name }}</span>
+            <span class="small text-muted">{{ t(`roles.${ws.role}`) }}</span>
+          </span>
+          <i class="bi bi-chevron-right text-muted" aria-hidden="true"></i>
+        </RouterLink>
+      </li>
+      <li v-for="ws in workspaces.pending" :key="ws.workspace_id">
+        <div class="card card-body d-flex flex-row align-items-center gap-3 opacity-75">
+          <WorkspaceAvatar :workspace="ws" />
+          <span class="flex-grow-1 min-w-0">
+            <span class="d-block fw-semibold text-truncate">{{ ws.name }}</span>
+            <span class="small text-warning">
+              <i class="bi bi-hourglass-split me-1" aria-hidden="true"></i>{{ t('workspaces.pending') }}
+            </span>
+          </span>
+        </div>
+      </li>
+    </ul>
+
+    <form class="card card-body" @submit.prevent="joinWithCode">
+      <label for="join-code" class="form-label fw-semibold">{{ t('workspaces.joinTitle') }}</label>
+      <p class="small text-muted">{{ t('workspaces.joinText') }}</p>
+      <div class="d-flex gap-2">
+        <input
+          id="join-code"
+          v-model="code"
+          class="form-control text-uppercase"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          maxlength="16"
+          required
+        />
+        <button type="submit" class="btn btn-outline-light flex-none">{{ t('workspaces.join') }}</button>
+      </div>
+    </form>
+  </template>
 </template>
-
-<style scoped>
-.bw-ws-dot {
-  width: 40px;
-  height: 40px;
-  flex: none;
-  border-radius: 12px;
-}
-</style>

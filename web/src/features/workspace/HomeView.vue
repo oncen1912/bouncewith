@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import EmptyState from '@/components/EmptyState.vue'
+import LoadingBlock from '@/components/LoadingBlock.vue'
 import { useAuthStore } from '@/features/auth/store'
 import { useWorkspaceStore } from './store'
 
@@ -13,10 +14,14 @@ const firstName = computed(() => auth.profile?.full_name.split(' ')[0] ?? '')
 </script>
 
 <template>
-  <div v-if="!workspaces.loaded" class="text-center py-5" role="status">
-    <span class="spinner-border" aria-hidden="true"></span>
-    <span class="visually-hidden">{{ t('common.loading') }}</span>
-  </div>
+  <LoadingBlock v-if="!workspaces.loaded" />
+
+  <EmptyState
+    v-else-if="workspaces.currentPending"
+    icon="bi-hourglass-split"
+    :title="t('home.pendingTitle', { name: workspaces.currentPending.name })"
+    :text="t('home.pendingText')"
+  />
 
   <EmptyState
     v-else-if="!workspaces.current"
@@ -30,7 +35,6 @@ const firstName = computed(() => auth.profile?.full_name.split(' ')[0] ?? '')
   </EmptyState>
 
   <template v-else>
-    <p class="text-muted mb-1">{{ workspaces.current.name }}</p>
     <h1 class="h3 mb-4">
       {{ firstName ? t('home.greetingName', { name: firstName }) : t('home.greeting') }}
     </h1>
