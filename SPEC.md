@@ -356,3 +356,5 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - 2026-11-03 · M3 · CSV export happens in the browser (event answers; member summary) with a UTF-8 BOM and spreadsheet-formula neutralisation.
 - 2026-11-03 · M3 · Event cards are `<article>`s with a stretched title link, so the RSVP buttons aren't nested inside a link.
 - 2026-11-03 · M3 · Seed adds workspace `zug-crew` (1 trainer, 15 members, Niko's owner co-owns) with a practice 1 h after reset: 12 going, 1 can't, 2 no answer. It's for the check-in demo and the done-when e2e.
+- 2026-11-03 · M3 · The check-in screen auto-starts only for an event with no attendance history; after a reset the trainer starts again on purpose, so a reset isn't silently undone.
+- 2026-11-03 · UI · The logo is the BounceWith ball (pink core, accent ring), as in the favicon, not a "BW" lettermark.

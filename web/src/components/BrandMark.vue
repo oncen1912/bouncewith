@@ -1,28 +1,18 @@
 <script setup lang="ts">
-// Logo badge like the website's: gradient rounded square with Bebas initials.
-withDefaults(defineProps<{ size?: number }>(), { size: 36 })
+// The BounceWith ball: pink core, ring in the accent colour (same mark as the favicon).
+withDefaults(defineProps<{ size?: number }>(), { size: 32 })
 </script>
 
 <template>
-  <span
-    class="bw-mark"
-    :style="{ width: `${size}px`, height: `${size}px`, fontSize: `${size * 0.5}px` }"
-    aria-hidden="true"
-    >BW</span
-  >
+  <span class="bw-mark" :style="{ width: `${size}px`, height: `${size}px` }" aria-hidden="true"></span>
 </template>
 
 <style scoped>
 .bw-mark {
-  display: inline-flex;
+  display: inline-block;
   flex: none;
-  align-items: center;
-  justify-content: center;
-  border-radius: 28%;
-  background: linear-gradient(135deg, var(--bw-teal), var(--bw-pink));
-  color: #fff;
-  font-family: var(--bw-font-display);
-  letter-spacing: 0.04em;
-  line-height: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bw-pink) 0 35%, var(--bw-accent) 36%);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--bw-accent) 35%, transparent);
 }
 </style>
