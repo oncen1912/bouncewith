@@ -2,6 +2,8 @@ import { expect, test, type Page } from '@playwright/test'
 
 // M3. Local only: uses the seeded zug-crew class of 15 (12 going, 1 can't, 2 no answer).
 test.skip(!!process.env.BASE_URL, 'changes data; local Supabase only')
+// the tests share the class of 15: run them one after another so answers don't change mid-check-in
+test.describe.configure({ mode: 'serial' })
 
 async function signIn(page: Page, email: string) {
   await page.getByText('Password', { exact: true }).click()
@@ -50,7 +52,8 @@ test('done-when: a trainer checks in a class of 15 on a phone in under 30 second
     await page.getByRole('button', { name: 'Reset' }).click()
     await page.getByLabel(/Type the event title/).fill('Crew Practice')
     await page.getByRole('dialog').getByRole('button', { name: 'Reset' }).click()
-    await page.reload()
+    await expect(count).toHaveText('0')
+    await page.getByRole('button', { name: 'Start check-in' }).click()
   }
 
   const started = Date.now()
@@ -87,6 +90,11 @@ test('done-when: a trainer checks in a class of 15 on a phone in under 30 second
   // 12 confirmed + 1 walk-in + 1 QR check-in
   await expect(page.getByText('Attendance reset: 14 removed')).toBeVisible()
   await expect(count).toHaveText('0')
+  // a reset sticks: reopening doesn't pre-tick again; the trainer restarts on purpose
+  await page.reload()
+  await expect(count).toHaveText('0')
+  await page.getByRole('button', { name: 'Start check-in' }).click()
+  await expect(count).not.toHaveText('0')
 })
 
 test('members cannot open the check-in screen', async ({ page }, info) => {

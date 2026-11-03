@@ -17,7 +17,7 @@ import ResetAttendanceDialog from './components/ResetAttendanceDialog.vue'
 import type { Attendee, Candidate } from './types'
 
 // Check-in (SPEC §7.1): confirmed members are present by default; the trainer taps the exceptions.
-const START_WINDOW_MS = 3 * 3_600_000 // auto-start from 3 h before the event
+const START_WINDOW_MS = 3 * 3_600_000 // auto-start from 3 h before the event, if never started before
 
 const { t } = useI18n()
 const route = useRoute()
@@ -53,8 +53,10 @@ async function load() {
     event.value = await eventsApi.getEvent(id)
     if (!event.value) return
     ;[rows.value, candidates.value] = await Promise.all([api.attendees(id), api.candidates(id)])
+    // auto-start only the first time: after a reset (logged) the trainer starts again on purpose
     const soon = Date.parse(event.value.starts_at) - Date.now() <= START_WINDOW_MS
-    if (!started.value && soon && event.value.status === 'scheduled') await start(false)
+    if (!started.value && soon && event.value.status === 'scheduled' && !(await api.hasAttendanceHistory(id)))
+      await start(false)
   } catch {
     toast.error(t('errors.generic'))
   } finally {

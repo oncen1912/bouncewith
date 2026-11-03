@@ -34,6 +34,16 @@ export async function candidates(eventId: string): Promise<Candidate[]> {
   return data
 }
 
+/** Whether attendance was ever recorded for the event (the log survives a reset). */
+export async function hasAttendanceHistory(eventId: string): Promise<boolean> {
+  const { count, error } = await supabase
+    .from('attendance_log')
+    .select('id', { count: 'exact', head: true })
+    .eq('event_id', eventId)
+  if (error) throw error
+  return (count ?? 0) > 0
+}
+
 export async function startCheckin(eventId: string): Promise<number> {
   const { data, error } = await supabase.rpc('start_checkin', { p_event: eventId })
   if (error) throw error
