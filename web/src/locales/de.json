@@ -29,7 +29,17 @@
       "group_invalid": "Eine der gewählten Gruppen gehört nicht zu diesem Workspace.",
       "not_series": "Dieser Termin gehört zu keiner Serie.",
       "invalid_scope": "Wähle, welche Termine du ändern willst.",
-      "message_required": "Schreib eine Nachricht für die Benachrichtigung."
+      "message_required": "Schreib eine Nachricht für die Benachrichtigung.",
+      "event_cancelled": "Dieser Termin ist abgesagt.",
+      "rsvp_closed": "Antworten für diesen Termin sind geschlossen.",
+      "self_absence_disabled": "In diesem Workspace kann man nicht mit »Kann nicht« antworten. Sprich mit deiner Trainerin oder deinem Trainer.",
+      "event_full": "Leider ist der Termin voll.",
+      "reason_too_long": "Bitte halte den Grund unter 300 Zeichen.",
+      "not_member": "Diese Person ist kein Mitglied des Workspace.",
+      "not_invited": "Dieser Termin ist nicht für dich.",
+      "invalid_minutes": "Wähle eine Dauer zwischen 1 und 240 Minuten.",
+      "invalid_token": "Diesen Check-in-Code gibt es nicht.",
+      "token_expired": "Dieser Check-in-Code ist abgelaufen. Lass dir einen neuen zeigen."
     }
   },
   "languages": {
@@ -316,5 +326,77 @@
     "created": "Termin erstellt",
     "seriesCreated": "Serie erstellt: {n} Termine geplant",
     "seriesUpdated": "Aktualisiert {updated}, behalten {kept} (schon beantwortet), abgesagt {cancelled}, neu {created}"
+  },
+  "rsvp": {
+    "question": "Bist du dabei?",
+    "going": "Bin dabei",
+    "notGoing": "Kann nicht",
+    "full": "Voll",
+    "spotsLeft": "Freie Plätze",
+    "spotsTaken": "{n} von {total} Plätzen belegt",
+    "savedGoing": "Bis bald!",
+    "savedNotGoing": "Danke für die Info",
+    "youreIn": "Du bist dabei",
+    "youCant": "Du kannst nicht",
+    "youCantShort": "Kann nicht",
+    "closed": "Antworten geschlossen",
+    "notGoingTitle": "Kannst du nicht zu {title}?",
+    "reason": "Grund (optional)",
+    "reasonPlaceholder": "z. B. krank, Schulausflug",
+    "send": "Senden",
+    "goingCount": "Dabei: {n}",
+    "summary": "Dabei {going} · kann nicht {notGoing} · keine Antwort {open}"
+  },
+  "attendance": {
+    "answers": "Antworten",
+    "tabs": {
+      "going": "Dabei ({n})",
+      "not_going": "Kann nicht ({n})",
+      "none": "Keine Antwort ({n})"
+    },
+    "nobody": "Noch niemand.",
+    "present": "Anwesend",
+    "absent": "Abwesend",
+    "unmarked": "Nicht erfasst",
+    "csv": {
+      "name": "Name",
+      "answer": "Antwort",
+      "reason": "Grund",
+      "attendance": "Anwesenheit",
+      "events": "Termine",
+      "rate": "Anwesenheitsquote"
+    },
+    "answer": {
+      "going": "Dabei",
+      "not_going": "Kann nicht",
+      "none": "Keine Antwort"
+    },
+    "checkin": "Check-in",
+    "start": "Check-in starten",
+    "started": "Zugesagte als anwesend erfasst: {n}",
+    "presentOf": "anwesend · {n} zugesagt",
+    "showQr": "QR zeigen",
+    "others": "Weitere ({n})",
+    "walkIn": "Ohne Anmeldung",
+    "walkInSearch": "Jemanden hinzufügen, der ohne Antwort gekommen ist",
+    "reset": "Zurücksetzen",
+    "resetTitle": "Anwesenheit zurücksetzen",
+    "resetText": "Entfernt nur die Anwesenheit dieses Termins. Die Änderung wird protokolliert; andere Termine bleiben unverändert.",
+    "resetType": "Gib zur Bestätigung den Titel ein: {title}",
+    "resetDone": "Anwesenheit zurückgesetzt: {n} entfernt",
+    "qrTitle": "Check-in-QR-Code",
+    "qrHelp": "Mitglieder scannen ihn mit der Handykamera und checken bei {title} ein.",
+    "qrLabel": "QR-Code für den Selbst-Check-in",
+    "qrValid": "Gültig noch {time}",
+    "qrExpired": "Abgelaufen: neuen Code erstellen",
+    "landingEyebrow": "Du bist eingecheckt",
+    "landingText": "Viel Spass beim Training!",
+    "landingOpen": "Termin öffnen",
+    "landingFailed": "Check-in hat nicht geklappt",
+    "history": "Anwesenheit (letzte 90 Tage)",
+    "noHistory": "Noch keine vergangenen Termine.",
+    "rate": "Anwesend an {present} von {recorded} erfassten Terminen",
+    "rateTitle": "Anwesenheitsquote, letzte 90 Tage",
+    "exportCsv": "CSV exportieren"
   }
 }

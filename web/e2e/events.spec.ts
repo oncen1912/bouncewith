@@ -38,7 +38,7 @@ test('trainer creates a weekly class; members see it; one occurrence is cancelle
   const member = await browser.newPage()
   await member.goto('/w/niko-dance/events')
   await signIn(member, 'mia@niko-dance.example')
-  const cards = member.getByRole('link').filter({ hasText: title })
+  const cards = member.getByRole('article').filter({ hasText: title })
   await expect(cards.first()).toBeVisible()
   expect(await cards.count()).toBeGreaterThanOrEqual(12)
   for (const card of await cards.all()) await expect(card).toContainText('18:30–20:00')
@@ -52,7 +52,7 @@ test('trainer creates a weekly class; members see it; one occurrence is cancelle
 
   await member.reload()
   await expect(
-    member.getByRole('link').filter({ hasText: title }).filter({ hasText: 'Cancelled' }),
+    member.getByRole('article').filter({ hasText: title }).filter({ hasText: 'Cancelled' }),
   ).toHaveCount(1)
 })
 

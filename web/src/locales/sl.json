@@ -29,7 +29,17 @@
       "group_invalid": "Ena od izbranih skupin ne spada v ta delovni prostor.",
       "not_series": "Ta dogodek ni del serije.",
       "invalid_scope": "Izberi, katere dogodke spremeniš.",
-      "message_required": "Napiši sporočilo za obvestilo."
+      "message_required": "Napiši sporočilo za obvestilo.",
+      "event_cancelled": "Ta dogodek je odpovedan.",
+      "rsvp_closed": "Odgovori za ta dogodek so zaprti.",
+      "self_absence_disabled": "V tem delovnem prostoru ni mogoče odgovoriti »Ne morem«. Pogovori se s trenerjem.",
+      "event_full": "Žal je dogodek poln.",
+      "reason_too_long": "Razlog naj bo krajši od 300 znakov.",
+      "not_member": "Ta oseba ni član delovnega prostora.",
+      "not_invited": "Ta dogodek ni zate.",
+      "invalid_minutes": "Izberi čas med 1 in 240 minutami.",
+      "invalid_token": "Ta koda za prijavo ne obstaja.",
+      "token_expired": "Ta koda za prijavo je potekla. Prosi trenerja za novo."
     }
   },
   "languages": {
@@ -316,5 +326,77 @@
     "created": "Dogodek je ustvarjen",
     "seriesCreated": "Serija je ustvarjena: načrtovanih dogodkov {n}",
     "seriesUpdated": "Posodobljeno {updated}, ohranjeno {kept} (že odgovorjeno), odpovedano {cancelled}, dodano {created}"
+  },
+  "rsvp": {
+    "question": "Prideš?",
+    "going": "Pridem",
+    "notGoing": "Ne morem",
+    "full": "Polno",
+    "spotsLeft": "Prosta mesta",
+    "spotsTaken": "Zasedenih mest: {n} od {total}",
+    "savedGoing": "Se vidimo!",
+    "savedNotGoing": "Hvala, da si sporočil",
+    "youreIn": "Prideš",
+    "youCant": "Ne moreš priti",
+    "youCantShort": "Ne more",
+    "closed": "Odgovori so zaprti",
+    "notGoingTitle": "Ne moreš na {title}?",
+    "reason": "Razlog (neobvezno)",
+    "reasonPlaceholder": "npr. bolezen, šolski izlet",
+    "send": "Pošlji",
+    "goingCount": "Pride: {n}",
+    "summary": "Pride {going} · ne more {notGoing} · brez odgovora {open}"
+  },
+  "attendance": {
+    "answers": "Odgovori",
+    "tabs": {
+      "going": "Pride ({n})",
+      "not_going": "Ne more ({n})",
+      "none": "Brez odgovora ({n})"
+    },
+    "nobody": "Tukaj še ni nikogar.",
+    "present": "Prisoten",
+    "absent": "Odsoten",
+    "unmarked": "Ni označeno",
+    "csv": {
+      "name": "Ime",
+      "answer": "Odgovor",
+      "reason": "Razlog",
+      "attendance": "Prisotnost",
+      "events": "Dogodki",
+      "rate": "Delež prisotnosti"
+    },
+    "answer": {
+      "going": "Pride",
+      "not_going": "Ne more",
+      "none": "Brez odgovora"
+    },
+    "checkin": "Prisotnost",
+    "start": "Začni beleženje",
+    "started": "Potrjeni označeni kot prisotni: {n}",
+    "presentOf": "prisotnih · {n} potrjenih",
+    "showQr": "Pokaži QR",
+    "others": "Drugi ({n})",
+    "walkIn": "Brez prijave",
+    "walkInSearch": "Dodaj nekoga, ki je prišel brez odgovora",
+    "reset": "Ponastavi",
+    "resetTitle": "Ponastavi prisotnost",
+    "resetText": "Odstrani prisotnost samo za ta dogodek. Sprememba se zabeleži, drugi dogodki ostanejo nespremenjeni.",
+    "resetType": "Za potrditev vpiši naslov dogodka: {title}",
+    "resetDone": "Prisotnost ponastavljena: odstranjenih {n}",
+    "qrTitle": "Koda QR za prijavo",
+    "qrHelp": "Člani jo skenirajo s kamero telefona in se prijavijo na {title}.",
+    "qrLabel": "Koda QR za samoprijavo",
+    "qrValid": "Velja še {time}",
+    "qrExpired": "Potekla: ustvari novo kodo",
+    "landingEyebrow": "Prijavljen si",
+    "landingText": "Uživaj na vadbi!",
+    "landingOpen": "Odpri dogodek",
+    "landingFailed": "Prijava ni uspela",
+    "history": "Prisotnost (zadnjih 90 dni)",
+    "noHistory": "Še ni preteklih dogodkov.",
+    "rate": "Prisoten na {present} od {recorded} zabeleženih dogodkov",
+    "rateTitle": "Delež prisotnosti, zadnjih 90 dni",
+    "exportCsv": "Izvozi CSV"
   }
 }

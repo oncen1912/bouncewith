@@ -2,11 +2,17 @@
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import EmptyState from '@/components/EmptyState.vue'
+import { attendanceRate, type Summary } from '@/features/attendance/types'
 import type { Group, Member } from '../types'
 import MemberDialog from './MemberDialog.vue'
 import MemberName from './MemberName.vue'
 
-const props = defineProps<{ workspaceId: string; members: Member[]; groups: Group[] }>()
+const props = defineProps<{
+  workspaceId: string
+  members: Member[]
+  groups: Group[]
+  summary?: Record<string, Summary>
+}>()
 const emit = defineEmits<{ changed: [] }>()
 const { t } = useI18n()
 
@@ -67,6 +73,13 @@ function onChanged() {
             groupName.get(g)
           }}</span>
           <span v-if="m.role !== 'member'" class="badge bw-role">{{ t(`roles.${m.role}`) }}</span>
+          <span
+            v-else-if="summary?.[m.user_id] && attendanceRate(summary[m.user_id]!) !== null"
+            class="badge text-bg-dark"
+            :title="t('attendance.rateTitle')"
+          >
+            {{ attendanceRate(summary[m.user_id]!) }}%
+          </span>
         </span>
         <i class="bi bi-chevron-right text-muted" aria-hidden="true"></i>
       </button>

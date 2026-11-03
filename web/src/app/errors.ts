@@ -20,6 +20,16 @@ const RPC_CODES = [
   'not_series',
   'invalid_scope',
   'message_required',
+  'event_cancelled',
+  'rsvp_closed',
+  'self_absence_disabled',
+  'event_full',
+  'reason_too_long',
+  'not_member',
+  'not_invited',
+  'invalid_minutes',
+  'invalid_token',
+  'token_expired',
 ] as const
 export type RpcCode = (typeof RPC_CODES)[number]
 

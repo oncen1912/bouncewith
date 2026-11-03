@@ -9,6 +9,7 @@ import LoadingBlock from '@/components/LoadingBlock.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import { listGroups } from '@/features/members/api'
 import type { Group } from '@/features/members/types'
+import { useAttendanceStore } from '@/features/attendance/store'
 import { useWorkspaceStore } from '@/features/workspace/store'
 import * as api from './api'
 import EventFilters, { type EventsQuery } from './components/EventFilters.vue'
@@ -23,6 +24,7 @@ const route = useRoute()
 const router = useRouter()
 const workspaces = useWorkspaceStore()
 const f = useEventFormat()
+const attendance = useAttendanceStore()
 
 const ws = computed(() => workspaces.current)
 const events = ref<EventRow[]>([])
@@ -71,6 +73,8 @@ async function load() {
   try {
     const [from, to, order] = range()
     events.value = await api.listEvents(ws.value.workspace_id, from, to, order)
+    if (query.value.view === 'list')
+      void attendance.load(events.value.map((e) => e.id)).catch(() => undefined)
   } catch {
     toast.error(t('errors.generic'))
   } finally {
