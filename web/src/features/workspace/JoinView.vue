@@ -77,7 +77,7 @@ async function join() {
       <div class="d-flex justify-content-center mb-3">
         <WorkspaceAvatar :workspace="preview" size="72" />
       </div>
-      <h1 class="h4">{{ preview.name }}</h1>
+      <h1 class="section-title fs-1">{{ preview.name }}</h1>
       <p class="text-muted">{{ t(`workspaceTypes.${preview.type}`) }}</p>
 
       <div v-if="status === 'pending'" role="status">

@@ -59,9 +59,17 @@ watch(
   position: sticky;
   top: 0;
   z-index: 1020;
-  background: var(--bw-bg-2);
-  border-bottom: 1px solid var(--bw-border);
+  background: rgb(12 12 12 / 95%);
+  backdrop-filter: blur(20px);
   padding-top: env(safe-area-inset-top);
+}
+
+/* gradient underline: teal → pink → yellow, as on bouncewith.me */
+.bw-topbar::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: var(--bw-gradient);
 }
 
 .bw-topbar-link {

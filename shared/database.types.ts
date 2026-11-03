@@ -350,8 +350,11 @@ export type Database = {
           duration_min: number
           group_ids: string[]
           id: string
+          image_url: string | null
           interval_weeks: number
           location: string | null
+          location_url: string | null
+          rsvp_deadline_minutes: number | null
           start_time: string
           starts_on: string
           title: string
@@ -370,8 +373,11 @@ export type Database = {
           duration_min: number
           group_ids?: string[]
           id?: string
+          image_url?: string | null
           interval_weeks?: number
           location?: string | null
+          location_url?: string | null
+          rsvp_deadline_minutes?: number | null
           start_time: string
           starts_on: string
           title: string
@@ -389,8 +395,11 @@ export type Database = {
           duration_min?: number
           group_ids?: string[]
           id?: string
+          image_url?: string | null
           interval_weeks?: number
           location?: string | null
+          location_url?: string | null
+          rsvp_deadline_minutes?: number | null
           start_time?: string
           starts_on?: string
           title?: string
@@ -418,6 +427,7 @@ export type Database = {
       }
       events: {
         Row: {
+          cancelled_at: string | null
           capacity: number | null
           category: string | null
           created_at: string
@@ -429,8 +439,10 @@ export type Database = {
           group_ids: string[]
           id: string
           image_url: string | null
+          is_exception: boolean
           location: string | null
           location_url: string | null
+          occurrence_date: string | null
           rsvp_deadline: string | null
           series_id: string | null
           source: Database['public']['Enums']['event_source']
@@ -443,6 +455,7 @@ export type Database = {
         }
         ComputedFields: never
         Insert: {
+          cancelled_at?: string | null
           capacity?: number | null
           category?: string | null
           created_at?: string
@@ -454,8 +467,10 @@ export type Database = {
           group_ids?: string[]
           id?: string
           image_url?: string | null
+          is_exception?: boolean
           location?: string | null
           location_url?: string | null
+          occurrence_date?: string | null
           rsvp_deadline?: string | null
           series_id?: string | null
           source?: Database['public']['Enums']['event_source']
@@ -467,6 +482,7 @@ export type Database = {
           workspace_id: string
         }
         Update: {
+          cancelled_at?: string | null
           capacity?: number | null
           category?: string | null
           created_at?: string
@@ -478,8 +494,10 @@ export type Database = {
           group_ids?: string[]
           id?: string
           image_url?: string | null
+          is_exception?: boolean
           location?: string | null
           location_url?: string | null
+          occurrence_date?: string | null
           rsvp_deadline?: string | null
           series_id?: string | null
           source?: Database['public']['Enums']['event_source']
@@ -813,6 +831,7 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          calendar_token: string | null
           created_at: string
           full_name: string
           id: string
@@ -823,6 +842,7 @@ export type Database = {
         ComputedFields: never
         Insert: {
           avatar_url?: string | null
+          calendar_token?: string | null
           created_at?: string
           full_name?: string
           id: string
@@ -832,6 +852,7 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          calendar_token?: string | null
           created_at?: string
           full_name?: string
           id?: string
@@ -1083,8 +1104,29 @@ export type Database = {
     Functions: {
       approve_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
       block_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
+      calendar_feed: {
+        Args: { p_token: string }
+        Returns: {
+          description: string
+          ends_at: string
+          id: string
+          location: string
+          location_url: string
+          starts_at: string
+          status: Database['public']['Enums']['event_status']
+          title: string
+          updated_at: string
+          workspace_name: string
+          workspace_slug: string
+        }[]
+      }
+      calendar_feed_exists: { Args: { p_token: string }; Returns: boolean }
       can_see_conversation: { Args: { conv: string }; Returns: boolean }
       can_see_event: { Args: { ev: string }; Returns: boolean }
+      cancel_event: {
+        Args: { p_event: string; p_message?: string; p_notify?: boolean; p_scope?: string }
+        Returns: number
+      }
       create_workspace: {
         Args: {
           p_name: string
@@ -1095,12 +1137,14 @@ export type Database = {
         Returns: string
       }
       delete_my_account: { Args: { p_confirm_email: string }; Returns: undefined }
+      expand_series: { Args: { p_series: string; p_until?: string }; Returns: number }
       in_any_group: { Args: { groups: string[] }; Returns: boolean }
       is_member: { Args: { ws: string }; Returns: boolean }
       is_owner: { Args: { ws: string }; Returns: boolean }
       is_trainer: { Args: { ws: string }; Returns: boolean }
       join_workspace: { Args: { p_code: string }; Returns: Database['public']['Enums']['membership_status'] }
       leave_workspace: { Args: { p_ws: string }; Returns: undefined }
+      my_calendar_token: { Args: Record<PropertyKey, never>; Returns: string }
       my_memberships: {
         Args: Record<PropertyKey, never>
         Returns: {
@@ -1118,11 +1162,13 @@ export type Database = {
       }
       regenerate_join_code: { Args: { p_ws: string }; Returns: string }
       remove_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
+      reset_calendar_token: { Args: Record<PropertyKey, never>; Returns: string }
       set_member_role: {
         Args: { p_role: Database['public']['Enums']['member_role']; p_user: string; p_ws: string }
         Returns: undefined
       }
       try_uuid: { Args: { value: string }; Returns: string }
+      update_series: { Args: { p_changes: Json; p_event: string }; Returns: Json }
       workspace_members: {
         Args: { p_ws: string }
         Returns: {

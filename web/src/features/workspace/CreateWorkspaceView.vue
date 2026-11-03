@@ -10,6 +10,7 @@ import * as api from './api'
 import { useWorkspaceStore } from './store'
 import { SLUG_PATTERN, slugify } from './slug'
 import { WORKSPACE_TYPES, type WorkspaceType } from './types'
+import PageHeader from '@/components/PageHeader.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -42,7 +43,7 @@ async function submit() {
 </script>
 
 <template>
-  <h1 class="h3 mb-4">{{ t('createWorkspace.title') }}</h1>
+  <PageHeader :title="t('createWorkspace.title')" :eyebrow="t('createWorkspace.eyebrow')" />
 
   <form class="card card-body d-grid gap-3" style="max-width: 560px" @submit.prevent="submit">
     <div>

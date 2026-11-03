@@ -54,7 +54,24 @@ const routes: RouteRecordRaw[] = [
         path: 'w/:slug',
         children: [
           { path: '', name: 'home', component: () => import('@/features/workspace/HomeView.vue') },
-          { path: 'events', name: 'events', component: Placeholder, meta: { titleKey: 'nav.events' } },
+          { path: 'events', name: 'events', component: () => import('@/features/events/EventsView.vue') },
+          {
+            path: 'events/new',
+            name: 'event-new',
+            component: () => import('@/features/events/EventFormView.vue'),
+            meta: { minRole: 'trainer' },
+          },
+          {
+            path: 'events/:id',
+            name: 'event',
+            component: () => import('@/features/events/EventDetailView.vue'),
+          },
+          {
+            path: 'events/:id/edit',
+            name: 'event-edit',
+            component: () => import('@/features/events/EventFormView.vue'),
+            meta: { minRole: 'trainer' },
+          },
           { path: 'inbox', name: 'inbox', component: Placeholder, meta: { titleKey: 'nav.inbox' } },
           {
             path: 'assistant',

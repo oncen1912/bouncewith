@@ -261,11 +261,11 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - **Done when:** a second user joins by QR, is approved, and only sees that workspace. ✅ e2e `web/e2e/join.spec.ts` (local)
 
 ### M2 — Events
-- [ ] Event form (one-off + weekly series), `expand_series()`, cron to extend series
-- [ ] Event list / week / month views, filters, past events
-- [ ] Event detail; edit "this / future"; cancel with notification
-- [ ] Personal iCal feed per user (secret URL)
-- **Done when:** a weekly class appears 12 weeks ahead in the correct local time across the DST change on 28 Mar 2027.
+- [x] Event form (one-off + weekly series), `expand_series()`, cron to extend series
+- [x] Event list / week / month views, filters, past events
+- [x] Event detail; edit "this / future"; cancel with notification (in-app notice; push/e-mail delivery with M5)
+- [x] Personal iCal feed per user (secret URL)
+- **Done when:** a weekly class appears 12 weeks ahead in the correct local time across the DST change on 28 Mar 2027. ✅ pgTAP `events.test.sql` (DST + 12 weeks), e2e `web/e2e/events.spec.ts`
 
 ### M3 — Attendance
 - [ ] RPCs §5.3 + pgTAP (deadline, capacity, cross-workspace, reset keeps other events' history)
@@ -337,3 +337,12 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - 2026-11-02 · M1 · Remove = membership deleted (can re-join with the code); block = status `blocked` (can't re-join; approve unblocks). Trainers can block/remove members and other trainers; only owners act on owners.
 - 2026-11-02 · M1 · Logos: public bucket `workspace-logos`, path `{workspace_id}/…`, owner-only write, PNG/JPG/WebP up to 1 MB (no SVG).
 - 2026-11-02 · M1 · Phones keep five tabs; Members (trainer) and Settings (owner) are on the "More" page. The desktop sidebar lists them directly. A workspace switcher sits in the sidebar and in the phone top bar.
+- 2026-11-03 · M2 · UI follows the bouncewith.me design system: Bebas Neue headlines, Space Grotesk text, the teal/pink/yellow gradient, pill buttons and filters, event cards colour-coded by category (workshop yellow, battle/show pink, else teal). Fonts are self-hosted via @fontsource, replacing the M0 "system font stack" decision. Muted text is #A3A3A3, not the site's #888, for WCAG AA.
+- 2026-11-03 · M2 · Series occurrences carry `occurrence_date` (unique per series) and `is_exception`. Scope "this" is a plain update of the row (a trigger marks it as an exception); scope "future" is `update_series(p_event, p_changes jsonb)`. "Future" restarts the series at that occurrence (starts_on moves; the "every N weeks" phase anchors there), keeps the series' horizon, and cancels — never deletes — occurrences whose date no longer fits.
+- 2026-11-03 · M2 · `event_series.rsvp_deadline_minutes` (before start) gives each occurrence its `rsvp_deadline`; series also gained `location_url` and `image_url`.
+- 2026-11-03 · M2 · `cancel_event(p_event, p_notify, p_scope 'this'|'future', p_message)`: "future" ends the series the day before. The notice is a broadcast message with recipients (everyone invited except the sender); push/e-mail delivery arrives with M5. Trainers can restore a cancelled event.
+- 2026-11-03 · M2 · `group_ids` of events and series must be groups of the same workspace (trigger); events can't move between workspaces or series.
+- 2026-11-03 · M2 · The description editor is plain text, stored as escaped paragraphs; HTML is sanitised with DOMPurify on save and again before `v-html`. A rich editor can come later.
+- 2026-11-03 · M2 · Categories are free text with suggestions (class, workshop, battle, performance, trip), stored lower-case.
+- 2026-11-03 · M2 · Calendar feed: Edge Function `calendar` (added to the function list) at `/functions/v1/calendar/<token>.ics`. It uses the publishable key and the definer RPC `calendar_feed(token)`, so no secret key. `profiles.calendar_token` is hidden from the API by column grants (co-members can read profiles); `/me` can reset it. The feed window is 30 days back to 180 days ahead.
+- 2026-11-03 · M2 · pg_cron job `bw-extend-series` runs daily at 02:17 UTC and keeps 12 weeks of occurrences ahead. The deploy workflow now also deploys Edge Functions.

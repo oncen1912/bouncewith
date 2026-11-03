@@ -1,5 +1,17 @@
 import { describe, expect, it } from 'vitest'
-import { formatDate, formatTime, formatTimeRange, localDateKey } from './datetime'
+import {
+  addDays,
+  formatDate,
+  formatTime,
+  formatTimeRange,
+  isoWeekday,
+  localDateKey,
+  monthGrid,
+  startOfWeek,
+  utcToZoned,
+  weekdayNames,
+  zonedToUtc,
+} from './datetime'
 
 describe('datetime', () => {
   it('shows times in the workspace timezone, not UTC', () => {
@@ -24,5 +36,60 @@ describe('datetime', () => {
 
   it('localises date names', () => {
     expect(formatDate('2026-12-01T12:00:00Z', 'de')).toBe('Di., 1. Dez.')
+  })
+})
+
+describe('zonedToUtc / utcToZoned', () => {
+  it('converts local wall-clock time to an instant, both sides of DST', () => {
+    expect(zonedToUtc('2027-03-23', '18:30').toISOString()).toBe('2027-03-23T17:30:00.000Z')
+    expect(zonedToUtc('2027-03-30', '18:30').toISOString()).toBe('2027-03-30T16:30:00.000Z')
+    expect(zonedToUtc('2026-12-01', '09:00', 'Europe/Ljubljana').toISOString()).toBe(
+      '2026-12-01T08:00:00.000Z',
+    )
+    expect(zonedToUtc('2026-07-01', '09:00', 'America/New_York').toISOString()).toBe(
+      '2026-07-01T13:00:00.000Z',
+    )
+  })
+
+  it('moves a time inside the spring-forward gap to a real instant', () => {
+    // 02:30 doesn't exist in Zurich on 28 Mar 2027; the result must be a valid instant that day
+    const t = zonedToUtc('2027-03-28', '02:30')
+    expect(utcToZoned(t).date).toBe('2027-03-28')
+  })
+
+  it('round-trips', () => {
+    for (const [date, time] of [
+      ['2027-03-27', '23:45'],
+      ['2027-10-31', '01:15'],
+      ['2026-11-03', '00:00'],
+    ] as const) {
+      expect(utcToZoned(zonedToUtc(date, time))).toEqual({ date, time })
+    }
+  })
+})
+
+describe('calendar days', () => {
+  it('adds days across month ends and DST without drifting', () => {
+    expect(addDays('2027-03-27', 2)).toBe('2027-03-29')
+    expect(addDays('2026-12-31', 1)).toBe('2027-01-01')
+  })
+
+  it('knows ISO weekdays and week starts', () => {
+    expect(isoWeekday('2026-11-02')).toBe(1)
+    expect(isoWeekday('2026-11-08')).toBe(7)
+    expect(startOfWeek('2026-11-05')).toBe('2026-11-02')
+  })
+
+  it('builds a Monday-first month grid of whole weeks', () => {
+    const grid = monthGrid('2026-11-15')
+    expect(grid[0]).toBe('2026-10-26')
+    expect(grid.length % 7).toBe(0)
+    expect(grid).toContain('2026-11-30')
+    expect(grid.at(-1)).toBe('2026-12-06')
+  })
+
+  it('names weekdays Monday first', () => {
+    expect(weekdayNames('en')[0]).toBe('Mon')
+    expect(weekdayNames('de')[6]).toBe('So')
   })
 })

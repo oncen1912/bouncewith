@@ -30,7 +30,8 @@ const { t } = useI18n()
   display: flex;
   height: calc(var(--bw-tabbar-height) + env(safe-area-inset-bottom));
   padding-bottom: env(safe-area-inset-bottom);
-  background: var(--bw-bg-2);
+  background: rgb(12 12 12 / 95%);
+  backdrop-filter: blur(20px);
   border-top: 1px solid var(--bw-border);
 }
 
@@ -53,6 +54,7 @@ const { t } = useI18n()
 
 .bw-tab.active {
   color: var(--bw-accent);
+  font-weight: 600;
 }
 
 .bw-tab:focus-visible {

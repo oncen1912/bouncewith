@@ -7,6 +7,7 @@ import EmptyState from '@/components/EmptyState.vue'
 import LoadingBlock from '@/components/LoadingBlock.vue'
 import WorkspaceAvatar from '@/components/WorkspaceAvatar.vue'
 import { useWorkspaceStore } from './store'
+import PageHeader from '@/components/PageHeader.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -31,12 +32,11 @@ function joinWithCode() {
 </script>
 
 <template>
-  <div class="d-flex align-items-center gap-2 mb-4">
-    <h1 class="h3 m-0 flex-grow-1">{{ t('workspaces.title') }}</h1>
+  <PageHeader :title="t('workspaces.title')" :eyebrow="t('workspaces.eyebrow')">
     <RouterLink :to="{ name: 'workspace-new' }" class="btn btn-primary">
       <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>{{ t('workspaces.create') }}
     </RouterLink>
-  </div>
+  </PageHeader>
 
   <LoadingBlock v-if="loading" />
 

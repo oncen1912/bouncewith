@@ -3,11 +3,13 @@ import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
+import CalendarFeedCard from './components/CalendarFeedCard.vue'
 import DeleteAccountCard from './components/DeleteAccountCard.vue'
 import MyWorkspacesCard from './components/MyWorkspacesCard.vue'
 import LanguageSelect from './components/LanguageSelect.vue'
 import { useAuthStore } from './store'
 import type { AppLocale } from '@/app/locale'
+import PageHeader from '@/components/PageHeader.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -50,7 +52,7 @@ async function signOut() {
 </script>
 
 <template>
-  <h1 class="h3 mb-4">{{ t('me.title') }}</h1>
+  <PageHeader :title="t('me.title')" :eyebrow="t('me.eyebrow')" />
 
   <section class="card card-body mb-3" aria-labelledby="me-profile">
     <h2 id="me-profile" class="h5">{{ t('me.profile') }}</h2>
@@ -104,6 +106,7 @@ async function signOut() {
   </section>
 
   <MyWorkspacesCard />
+  <CalendarFeedCard />
 
   <button type="button" class="btn btn-outline-light w-100 mb-3" @click="signOut">
     <i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i>{{ t('auth.signOut') }}

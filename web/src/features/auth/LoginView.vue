@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
 import { safeRedirect } from '@/app/redirect'
+import BrandMark from '@/components/BrandMark.vue'
 import MagicLinkForm from './components/MagicLinkForm.vue'
 import PasswordForm from './components/PasswordForm.vue'
 import LanguageSelect from './components/LanguageSelect.vue'
@@ -30,8 +31,8 @@ async function google() {
 <template>
   <main class="bw-login container py-5">
     <div class="text-center mb-4">
-      <span class="bw-logo" aria-hidden="true"></span>
-      <h1 class="h3 mt-3 mb-1">{{ t('auth.title') }}</h1>
+      <BrandMark :size="64" />
+      <h1 class="section-title mt-3 mb-1">{{ t('auth.title') }}</h1>
       <p class="text-muted">{{ t('auth.subtitle') }}</p>
     </div>
 
@@ -62,14 +63,6 @@ async function google() {
 <style scoped>
 .bw-login {
   max-width: 440px;
-}
-
-.bw-logo {
-  display: inline-block;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--bw-pink) 0 35%, var(--bw-accent) 36%);
 }
 
 .bw-or {
