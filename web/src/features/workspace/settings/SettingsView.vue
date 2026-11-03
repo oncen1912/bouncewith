@@ -10,6 +10,7 @@ import type { WorkspacePatch, WorkspaceSettings } from '../types'
 import BrandingSettings from './BrandingSettings.vue'
 import GeneralSettings from './GeneralSettings.vue'
 import InviteSettings from './InviteSettings.vue'
+import PageHeader from '@/components/PageHeader.vue'
 
 const { t } = useI18n()
 const workspaces = useWorkspaceStore()
@@ -42,7 +43,7 @@ async function save(patch: WorkspacePatch): Promise<boolean> {
 </script>
 
 <template>
-  <h1 class="h3 mb-4">{{ t('nav.settings') }}</h1>
+  <PageHeader :title="t('nav.settings')" :eyebrow="workspaces.current?.name" />
   <LoadingBlock v-if="!settings" />
   <div v-else class="d-grid gap-3" style="max-width: 640px">
     <GeneralSettings :settings="settings" :save="save" />

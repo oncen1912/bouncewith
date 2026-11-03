@@ -9,6 +9,7 @@ import GroupsPanel from './components/GroupsPanel.vue'
 import MemberList from './components/MemberList.vue'
 import PendingRequests from './components/PendingRequests.vue'
 import type { Group, Member } from './types'
+import PageHeader from '@/components/PageHeader.vue'
 
 const { t } = useI18n()
 const workspaces = useWorkspaceStore()
@@ -38,7 +39,7 @@ onMounted(reload)
 </script>
 
 <template>
-  <h1 class="h3 mb-4">{{ t('nav.members') }}</h1>
+  <PageHeader :title="t('nav.members')" :eyebrow="workspaces.current?.name" />
   <LoadingBlock v-if="loading" />
 
   <template v-else>

@@ -87,3 +87,14 @@ from (values
    'Morning Flow', '<p>Gentle vinyasa.</p>', 1, time '07:00', interval '60 min',
    'Seeufer', 'class', 12, 'members', '{}', '22222222-0000-0000-0000-000000000001')
 ) as e (id, ws, title, description, day_offset, start_local, duration, location, category, capacity, visibility, group_ids, created_by);
+
+-- ───────────────────────── weekly series ─────────────────────────
+insert into public.event_series (id, workspace_id, title, description, weekdays, start_time, duration_min, starts_on,
+                                 location, category, group_ids, rsvp_deadline_minutes, created_by) values
+  ('a3000000-0000-0000-0000-000000000001', 'a0000000-0000-0000-0000-000000000001', 'Breaking Crew',
+   '<p>Toprock, footwork and freezes. Every Thursday.</p>', '{4}', '18:00', 90, current_date,
+   'Studio Bounce', 'class', '{}', 120, '11111111-0000-0000-0000-000000000002'),
+  ('a3000000-0000-0000-0000-000000000002', 'a0000000-0000-0000-0000-000000000001', 'Juniors Training',
+   '<p>Weekly training for the Juniors group.</p>', '{1,3}', '17:00', 60, current_date,
+   'Studio Bounce', 'class', '{a1000000-0000-0000-0000-000000000001}', null, '11111111-0000-0000-0000-000000000002');
+select private.expand_series(id, current_date + 84) from public.event_series;

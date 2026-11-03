@@ -5,6 +5,7 @@ import EmptyState from '@/components/EmptyState.vue'
 import LoadingBlock from '@/components/LoadingBlock.vue'
 import { useAuthStore } from '@/features/auth/store'
 import { useWorkspaceStore } from './store'
+import PageHeader from '@/components/PageHeader.vue'
 
 const { t } = useI18n()
 const auth = useAuthStore()
@@ -35,9 +36,10 @@ const firstName = computed(() => auth.profile?.full_name.split(' ')[0] ?? '')
   </EmptyState>
 
   <template v-else>
-    <h1 class="h3 mb-4">
-      {{ firstName ? t('home.greetingName', { name: firstName }) : t('home.greeting') }}
-    </h1>
+    <PageHeader
+      :title="firstName ? t('home.greetingName', { name: firstName }) : t('home.greeting')"
+      :eyebrow="workspaces.current.name"
+    />
 
     <section class="mb-4" aria-labelledby="next-events">
       <h2 id="next-events" class="h5">{{ t('home.nextEvents') }}</h2>

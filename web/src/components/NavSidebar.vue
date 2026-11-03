@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import type { NavItem } from './nav'
+import BrandMark from './BrandMark.vue'
 import WorkspaceAvatar from './WorkspaceAvatar.vue'
 
 defineProps<{
@@ -13,8 +14,8 @@ const { t } = useI18n()
 <template>
   <aside class="bw-sidebar d-none d-md-flex">
     <RouterLink :to="{ name: 'workspaces' }" class="bw-brand">
-      <span class="bw-logo" aria-hidden="true"></span>
-      BounceWith
+      <BrandMark />
+      <span>BounceWith</span>
     </RouterLink>
     <RouterLink v-if="workspace" :to="{ name: 'workspaces' }" class="bw-ws" :title="t('nav.switchWorkspace')">
       <WorkspaceAvatar :workspace="workspace" size="32" />
@@ -48,27 +49,31 @@ const { t } = useI18n()
   flex-direction: column;
   gap: 0.5rem;
   padding: 1.5rem 1rem;
-  background: var(--bw-bg-2);
+  background: rgb(12 12 12 / 95%);
   border-right: 1px solid var(--bw-border);
+}
+
+/* the website's gradient stripe, here along the sidebar edge */
+.bw-sidebar::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 2px;
+  background: linear-gradient(180deg, var(--bw-teal), var(--bw-pink), var(--bw-yellow));
 }
 
 .bw-brand {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-family: var(--bw-font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
   color: var(--bw-text);
   text-decoration: none;
   margin-bottom: 0.5rem;
 }
 
-.bw-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--bw-pink) 0 35%, var(--bw-accent) 36%);
-}
 
 .bw-ws {
   display: flex;

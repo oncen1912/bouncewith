@@ -8,6 +8,7 @@ import MyWorkspacesCard from './components/MyWorkspacesCard.vue'
 import LanguageSelect from './components/LanguageSelect.vue'
 import { useAuthStore } from './store'
 import type { AppLocale } from '@/app/locale'
+import PageHeader from '@/components/PageHeader.vue'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -50,7 +51,7 @@ async function signOut() {
 </script>
 
 <template>
-  <h1 class="h3 mb-4">{{ t('me.title') }}</h1>
+  <PageHeader :title="t('me.title')" :eyebrow="t('me.eyebrow')" />
 
   <section class="card card-body mb-3" aria-labelledby="me-profile">
     <h2 id="me-profile" class="h5">{{ t('me.profile') }}</h2>

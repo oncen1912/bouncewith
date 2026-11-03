@@ -6,6 +6,7 @@ import { toast } from 'vue-sonner'
 import { adminItems } from '@/components/nav'
 import { useAuthStore } from '@/features/auth/store'
 import { useWorkspaceStore } from './store'
+import PageHeader from '@/components/PageHeader.vue'
 
 // Phone "More" tab: everything that doesn't fit in the five tabs.
 const { t } = useI18n()
@@ -33,7 +34,7 @@ async function signOut() {
 </script>
 
 <template>
-  <h1 class="h3 mb-4">{{ t('nav.more') }}</h1>
+  <PageHeader :title="t('nav.more')" :eyebrow="workspaces.current?.name" />
   <nav :aria-label="t('nav.more')">
     <ul class="list-group mb-4">
       <li v-for="item in items" :key="item.labelKey" class="list-group-item p-0">
