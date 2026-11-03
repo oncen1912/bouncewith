@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
 import { errorKey } from '@/app/errors'
 import BaseDialog from '@/components/BaseDialog.vue'
+import MemberAttendance from '@/features/attendance/components/MemberAttendance.vue'
 import { useAuthStore } from '@/features/auth/store'
 import { useWorkspaceStore } from '@/features/workspace/store'
 import type { Role } from '@/features/workspace/types'
@@ -89,6 +90,13 @@ const remove = () => run(() => api.removeMember(props.workspaceId, props.member.
         </div>
       </fieldset>
     </form>
+
+    <MemberAttendance
+      v-if="member.status === 'active'"
+      :workspace-id="workspaceId"
+      :user-id="member.user_id"
+      class="mt-4"
+    />
 
     <div v-if="canManage && member.status === 'active'" class="border-top border-secondary-subtle mt-4 pt-3">
       <div v-if="confirmRemove" class="d-grid gap-2" role="alert">

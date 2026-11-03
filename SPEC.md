@@ -268,12 +268,12 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - **Done when:** a weekly class appears 12 weeks ahead in the correct local time across the DST change on 28 Mar 2027. ✅ pgTAP `events.test.sql` (DST + 12 weeks), e2e `web/e2e/events.spec.ts`
 
 ### M3 — Attendance
-- [ ] RPCs §5.3 + pgTAP (deadline, capacity, cross-workspace, reset keeps other events' history)
-- [ ] RSVP buttons on home, list and detail; reasons for "Can't make it"
-- [ ] Trainer counts + attendee lists by status
-- [ ] Check-in screen (default present for confirmed, toggles, walk-ins), QR check-in
-- [ ] Reset with typed confirmation; attendance history per member; CSV export
-- **Done when:** a trainer checks in a class of 15 in under 30 seconds on a phone.
+- [x] RPCs §5.3 + pgTAP (deadline, capacity, cross-workspace, reset keeps other events' history)
+- [x] RSVP buttons on home, list and detail; reasons for "Can't make it"
+- [x] Trainer counts + attendee lists by status
+- [x] Check-in screen (default present for confirmed, toggles, walk-ins), QR check-in
+- [x] Reset with typed confirmation; attendance history per member; CSV export
+- **Done when:** a trainer checks in a class of 15 in under 30 seconds on a phone. ✅ e2e `web/e2e/attendance.spec.ts` (375 px: 12 pre-ticked, 3 taps)
 
 ### M4 — Website integration
 - [ ] `public-api` read endpoints + iCal, CORS, caching, rate limit
@@ -346,3 +346,13 @@ Phase 1 of the product doc = M0 to M4. Tick boxes as you finish.
 - 2026-11-03 · M2 · Categories are free text with suggestions (class, workshop, battle, performance, trip), stored lower-case.
 - 2026-11-03 · M2 · Calendar feed: Edge Function `calendar` (added to the function list) at `/functions/v1/calendar/<token>.ics`. It uses the publishable key and the definer RPC `calendar_feed(token)`, so no secret key. `profiles.calendar_token` is hidden from the API by column grants (co-members can read profiles); `/me` can reset it. The feed window is 30 days back to 180 days ahead.
 - 2026-11-03 · M2 · pg_cron job `bw-extend-series` runs daily at 02:17 UTC and keeps 12 weeks of occurrences ahead. The deploy workflow now also deploys Edge Functions.
+- 2026-11-03 · M3 · An event's participants are the active members (role `member`) it is addressed to, plus anyone who answered or was marked (trainers who RSVP'd, walk-ins). Counts use participants; trainers count only if they answer.
+- 2026-11-03 · M3 · `rsvp()` locks the event row so concurrent "going" answers can't overbook. Answering "going" clears the reason; reasons are at most 300 characters. A workspace with `allow_self_absence = false` refuses "not going" (`self_absence_disabled`).
+- 2026-11-03 · M3 · Extra RPCs: `event_counts_many` (batch, max 200, counts only), `event_attendees` and `checkin_candidates` (trainers), `member_attendance` (self or trainer) and `attendance_summary` (trainers, last 90 days by default).
+- 2026-11-03 · M3 · Walk-ins: `mark_attendance` accepts any active member of the workspace, not only the event's audience.
+- 2026-11-03 · M3 · The check-in screen runs `start_checkin` automatically from 3 h before the start; earlier it shows a "Start check-in" button, so opening it days ahead doesn't mark anyone. Taps are optimistic and saved one by one.
+- 2026-11-03 · M3 · QR check-in tokens are 32 hex characters (128 bit), valid 30 minutes by default (1–240), stored only as sha256. Members scan with the phone camera, which opens `/checkin/:token`.
+- 2026-11-03 · M3 · Attendance rate = present / (present + absent) over recorded events in the last 90 days; unrecorded events don't count against the member.
+- 2026-11-03 · M3 · CSV export happens in the browser (event answers; member summary) with a UTF-8 BOM and spreadsheet-formula neutralisation.
+- 2026-11-03 · M3 · Event cards are `<article>`s with a stretched title link, so the RSVP buttons aren't nested inside a link.
+- 2026-11-03 · M3 · Seed adds workspace `zug-crew` (1 trainer, 15 members, Niko's owner co-owns) with a practice 1 h after reset: 12 going, 1 can't, 2 no answer. It's for the check-in demo and the done-when e2e.

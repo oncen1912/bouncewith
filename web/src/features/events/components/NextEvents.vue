@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import EmptyState from '@/components/EmptyState.vue'
 import LoadingBlock from '@/components/LoadingBlock.vue'
+import { useAttendanceStore } from '@/features/attendance/store'
 import * as api from '../api'
 import type { EventRow } from '../types'
 import EventCard from './EventCard.vue'
@@ -11,6 +12,7 @@ import EventCard from './EventCard.vue'
 const props = defineProps<{ workspaceId: string; slug: string; isTrainer: boolean }>()
 const { t } = useI18n()
 const events = ref<EventRow[] | null>(null)
+const attendance = useAttendanceStore()
 
 watch(
   () => props.workspaceId,
@@ -19,7 +21,9 @@ watch(
     const now = new Date()
     const later = new Date(now.getTime() + 120 * 86_400_000)
     const list = await api.listEvents(id, now.toISOString(), later.toISOString(), 'asc', 20).catch(() => [])
-    events.value = list.filter((e) => e.status === 'scheduled').slice(0, 3)
+    const next = list.filter((e) => e.status === 'scheduled').slice(0, 3)
+    await attendance.load(next.map((e) => e.id)).catch(() => undefined)
+    events.value = next
   },
   { immediate: true },
 )

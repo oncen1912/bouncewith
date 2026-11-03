@@ -49,6 +49,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/features/workspace/CreateWorkspaceView.vue'),
       },
       { path: 'join/:code', name: 'join', component: () => import('@/features/workspace/JoinView.vue') },
+      {
+        path: 'checkin/:token',
+        name: 'checkin',
+        component: () => import('@/features/attendance/CheckinLandingView.vue'),
+      },
       { path: 'me', name: 'me', component: () => import('@/features/auth/MeView.vue') },
       {
         path: 'w/:slug',
@@ -65,6 +70,12 @@ const routes: RouteRecordRaw[] = [
             path: 'events/:id',
             name: 'event',
             component: () => import('@/features/events/EventDetailView.vue'),
+          },
+          {
+            path: 'events/:id/checkin',
+            name: 'event-checkin',
+            component: () => import('@/features/attendance/CheckinView.vue'),
+            meta: { minRole: 'trainer' },
           },
           {
             path: 'events/:id/edit',

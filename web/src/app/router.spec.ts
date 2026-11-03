@@ -23,6 +23,7 @@ describe('router', () => {
     ['/w/niko-dance/settings', 'owner'],
     ['/w/niko-dance/events/new', 'trainer'],
     ['/w/niko-dance/events/abc/edit', 'trainer'],
+    ['/w/niko-dance/events/abc/checkin', 'trainer'],
   ])('%s requires at least %s', (path, role) => {
     expect(router.resolve(path).meta.minRole).toBe(role)
   })
@@ -32,5 +33,6 @@ describe('router', () => {
     expect(router.resolve('/w/new').name).toBe('workspace-new')
     expect(router.resolve('/w/niko-dance/events/new').name).toBe('event-new')
     expect(router.resolve('/w/niko-dance/events/abc').name).toBe('event')
+    expect(router.resolve('/checkin/0123abcd').name).toBe('checkin')
   })
 })

@@ -1,24 +1,26 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import RsvpButtons from '@/features/attendance/components/RsvpButtons.vue'
+import SpotsBar from '@/features/attendance/components/SpotsBar.vue'
+import { useAttendanceStore } from '@/features/attendance/store'
 import { categoryTone, type EventRow } from '../types'
 import { useEventFormat } from '../useEventFormat'
 
-// The bouncewith.me event card: banner with glass badges, colour-coded by category.
-const props = defineProps<{ event: EventRow; slug: string }>()
+// The bouncewith.me event card: banner with glass badges, colour-coded by category, spots bar and RSVP.
+// The title link is stretched over the whole card; the RSVP buttons sit above it (no buttons inside a link).
+const props = withDefaults(defineProps<{ event: EventRow; slug: string; rsvp?: boolean }>(), { rsvp: true })
 const { t } = useI18n()
 const f = useEventFormat()
+const attendance = useAttendanceStore()
+const counts = computed(() => attendance.counts[props.event.id])
 
 const tone = computed(() => categoryTone(props.event.category))
 const cancelled = computed(() => props.event.status === 'cancelled')
 </script>
 
 <template>
-  <RouterLink
-    :to="{ name: 'event', params: { slug, id: event.id } }"
-    class="bw-card bw-event"
-    :class="[`tone-${tone}`, { 'is-cancelled': cancelled }]"
-  >
+  <article class="bw-card bw-event" :class="[`tone-${tone}`, { 'is-cancelled': cancelled }]">
     <div
       class="bw-event-banner"
       :style="event.image_url ? { backgroundImage: `url(${JSON.stringify(event.image_url)})` } : undefined"
@@ -31,7 +33,11 @@ const cancelled = computed(() => props.event.status === 'cancelled')
       </div>
     </div>
     <div class="bw-event-body">
-      <h3 class="bw-event-title" :class="`text-${tone}`">{{ event.title }}</h3>
+      <h3 class="bw-event-title" :class="`text-${tone}`">
+        <RouterLink :to="{ name: 'event', params: { slug, id: event.id } }" class="bw-event-link">{{
+          event.title
+        }}</RouterLink>
+      </h3>
       <p class="bw-event-meta">
         <span
           ><i class="bi bi-clock-fill me-1" aria-hidden="true"></i
@@ -48,9 +54,21 @@ const cancelled = computed(() => props.event.status === 'cancelled')
           ><i class="bi bi-globe2" aria-hidden="true"></i>
           <span class="visually-hidden">{{ t('events.public') }}</span></span
         >
+        <span v-if="counts && !event.capacity"
+          ><i class="bi bi-people-fill me-1" aria-hidden="true"></i
+          >{{ t('rsvp.goingCount', { n: counts.going }) }}</span
+        >
       </p>
+      <SpotsBar
+        v-if="event.capacity && counts && !cancelled"
+        :capacity="event.capacity"
+        :going="counts.going"
+        :tone="tone"
+        class="mt-3"
+      />
+      <RsvpButtons v-if="rsvp" :event="event" class="bw-event-actions mt-3" />
     </div>
-  </RouterLink>
+  </article>
 </template>
 
 <style scoped>
@@ -81,8 +99,45 @@ const cancelled = computed(() => props.event.status === 'cancelled')
   gap: 0.4rem;
 }
 
+.bw-event {
+  position: relative;
+}
+
+.bw-event:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--bw-accent) 30%, transparent);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 40%);
+}
+
 .bw-event-body {
   padding: 1rem 1.25rem 1.25rem;
+}
+
+.bw-event-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* stretched link: the whole card opens the event */
+.bw-event-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bw-event-link:focus-visible {
+  outline: none;
+}
+
+.bw-event:has(.bw-event-link:focus-visible) {
+  outline: 2px solid var(--bw-accent);
+  outline-offset: 3px;
+}
+
+.bw-event-actions {
+  position: relative;
+  z-index: 2;
 }
 
 .bw-event-title {

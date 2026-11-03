@@ -1103,6 +1103,16 @@ export type Database = {
     }
     Functions: {
       approve_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
+      attendance_summary: {
+        Args: { p_days?: number; p_ws: string }
+        Returns: {
+          absent: number
+          events: number
+          present: number
+          unrecorded: number
+          user_id: string
+        }[]
+      }
       block_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
       calendar_feed: {
         Args: { p_token: string }
@@ -1127,6 +1137,14 @@ export type Database = {
         Args: { p_event: string; p_message?: string; p_notify?: boolean; p_scope?: string }
         Returns: number
       }
+      checkin_candidates: {
+        Args: { p_event: string }
+        Returns: {
+          full_name: string
+          user_id: string
+        }[]
+      }
+      create_checkin_token: { Args: { p_event: string; p_minutes?: number }; Returns: string }
       create_workspace: {
         Args: {
           p_name: string
@@ -1137,6 +1155,44 @@ export type Database = {
         Returns: string
       }
       delete_my_account: { Args: { p_confirm_email: string }; Returns: undefined }
+      event_attendees: {
+        Args: { p_event: string }
+        Returns: {
+          answer: Database['public']['Enums']['rsvp_answer']
+          answered_at: string
+          full_name: string
+          in_audience: boolean
+          marked_at: string
+          method: Database['public']['Enums']['attendance_method']
+          present: boolean
+          reason: string
+          role: Database['public']['Enums']['member_role']
+          user_id: string
+        }[]
+      }
+      event_counts: {
+        Args: { p_event: string }
+        Returns: {
+          absent: number
+          going: number
+          invited: number
+          no_answer: number
+          not_going: number
+          present: number
+        }[]
+      }
+      event_counts_many: {
+        Args: { p_events: string[] }
+        Returns: {
+          absent: number
+          event_id: string
+          going: number
+          invited: number
+          no_answer: number
+          not_going: number
+          present: number
+        }[]
+      }
       expand_series: { Args: { p_series: string; p_until?: string }; Returns: number }
       in_any_group: { Args: { groups: string[] }; Returns: boolean }
       is_member: { Args: { ws: string }; Returns: boolean }
@@ -1144,6 +1200,19 @@ export type Database = {
       is_trainer: { Args: { ws: string }; Returns: boolean }
       join_workspace: { Args: { p_code: string }; Returns: Database['public']['Enums']['membership_status'] }
       leave_workspace: { Args: { p_ws: string }; Returns: undefined }
+      mark_attendance: { Args: { p_event: string; p_present: boolean; p_user: string }; Returns: undefined }
+      member_attendance: {
+        Args: { p_days?: number; p_user: string; p_ws: string }
+        Returns: {
+          answer: Database['public']['Enums']['rsvp_answer']
+          event_id: string
+          method: Database['public']['Enums']['attendance_method']
+          present: boolean
+          reason: string
+          starts_at: string
+          title: string
+        }[]
+      }
       my_calendar_token: { Args: Record<PropertyKey, never>; Returns: string }
       my_memberships: {
         Args: Record<PropertyKey, never>
@@ -1160,13 +1229,20 @@ export type Database = {
           workspace_id: string
         }[]
       }
+      qr_checkin: { Args: { p_token: string }; Returns: string }
       regenerate_join_code: { Args: { p_ws: string }; Returns: string }
       remove_member: { Args: { p_user: string; p_ws: string }; Returns: undefined }
+      reset_attendance: { Args: { p_confirm_title: string; p_event: string }; Returns: number }
       reset_calendar_token: { Args: Record<PropertyKey, never>; Returns: string }
+      rsvp: {
+        Args: { p_answer: Database['public']['Enums']['rsvp_answer']; p_event: string; p_reason?: string }
+        Returns: Database['public']['Enums']['rsvp_answer']
+      }
       set_member_role: {
         Args: { p_role: Database['public']['Enums']['member_role']; p_user: string; p_ws: string }
         Returns: undefined
       }
+      start_checkin: { Args: { p_event: string }; Returns: number }
       try_uuid: { Args: { value: string }; Returns: string }
       update_series: { Args: { p_changes: Json; p_event: string }; Returns: Json }
       workspace_members: {

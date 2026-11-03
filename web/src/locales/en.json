@@ -29,7 +29,17 @@
       "group_invalid": "One of the selected groups doesn't belong to this workspace.",
       "not_series": "This event isn't part of a series.",
       "invalid_scope": "Choose which events to change.",
-      "message_required": "Write a message for the notification."
+      "message_required": "Write a message for the notification.",
+      "event_cancelled": "This event is cancelled.",
+      "rsvp_closed": "Answers for this event are closed.",
+      "self_absence_disabled": "This workspace doesn't allow answering \"Can't make it\". Talk to your trainer.",
+      "event_full": "Sorry, the event is full.",
+      "reason_too_long": "Please keep the reason under 300 characters.",
+      "not_member": "This person isn't a member of the workspace.",
+      "not_invited": "This event isn't for you.",
+      "invalid_minutes": "Choose a time between 1 and 240 minutes.",
+      "invalid_token": "This check-in code doesn't exist.",
+      "token_expired": "This check-in code has expired. Ask your trainer to show a new one."
     }
   },
   "languages": {
@@ -316,5 +326,77 @@
     "created": "Event created",
     "seriesCreated": "Series created: {n} events planned",
     "seriesUpdated": "Updated {updated}, kept {kept} (already answered), cancelled {cancelled}, added {created}"
+  },
+  "rsvp": {
+    "question": "Are you coming?",
+    "going": "I'm in",
+    "notGoing": "Can't make it",
+    "full": "Full",
+    "spotsLeft": "Spots left",
+    "spotsTaken": "{n} of {total} spots taken",
+    "savedGoing": "See you there!",
+    "savedNotGoing": "Thanks for letting us know",
+    "youreIn": "You're in",
+    "youCant": "You can't make it",
+    "youCantShort": "Can't make it",
+    "closed": "Answers closed",
+    "notGoingTitle": "Can't make it to {title}?",
+    "reason": "Reason (optional)",
+    "reasonPlaceholder": "e.g. sick, school trip",
+    "send": "Send",
+    "goingCount": "Going: {n}",
+    "summary": "Going {going} · can't {notGoing} · no answer {open}"
+  },
+  "attendance": {
+    "answers": "Answers",
+    "tabs": {
+      "going": "Going ({n})",
+      "not_going": "Can't ({n})",
+      "none": "No answer ({n})"
+    },
+    "nobody": "Nobody here yet.",
+    "present": "Present",
+    "absent": "Absent",
+    "unmarked": "Not marked",
+    "csv": {
+      "name": "Name",
+      "answer": "Answer",
+      "reason": "Reason",
+      "attendance": "Attendance",
+      "events": "Events",
+      "rate": "Attendance rate"
+    },
+    "answer": {
+      "going": "Going",
+      "not_going": "Can't make it",
+      "none": "No answer"
+    },
+    "checkin": "Check-in",
+    "start": "Start check-in",
+    "started": "Confirmed members marked present: {n}",
+    "presentOf": "present · {n} confirmed",
+    "showQr": "Show QR",
+    "others": "Others ({n})",
+    "walkIn": "Walk-in",
+    "walkInSearch": "Add someone who came without answering",
+    "reset": "Reset",
+    "resetTitle": "Reset attendance",
+    "resetText": "Removes the attendance of this event only. The change is logged; other events are not affected.",
+    "resetType": "Type the event title to confirm: {title}",
+    "resetDone": "Attendance reset: {n} removed",
+    "qrTitle": "Check-in QR code",
+    "qrHelp": "Members scan this with their phone camera to check in to {title}.",
+    "qrLabel": "QR code for self check-in",
+    "qrValid": "Valid for {time}",
+    "qrExpired": "Expired: create a new code",
+    "landingEyebrow": "You're checked in",
+    "landingText": "Have a great session!",
+    "landingOpen": "Open the event",
+    "landingFailed": "Check-in didn't work",
+    "history": "Attendance (last 90 days)",
+    "noHistory": "No past events yet.",
+    "rate": "Present at {present} of {recorded} recorded events",
+    "rateTitle": "Attendance rate, last 90 days",
+    "exportCsv": "Export CSV"
   }
 }

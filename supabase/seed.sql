@@ -98,3 +98,56 @@ insert into public.event_series (id, workspace_id, title, description, weekdays,
    '<p>Weekly training for the Juniors group.</p>', '{1,3}', '17:00', 60, current_date,
    'Studio Bounce', 'class', '{a1000000-0000-0000-0000-000000000001}', null, '11111111-0000-0000-0000-000000000002');
 select private.expand_series(id, current_date + 84) from public.event_series;
+
+-- ───────────────────────── answers (M3) ─────────────────────────
+insert into public.rsvps (event_id, user_id, workspace_id, answer, reason) values
+  ('a2000000-0000-0000-0000-000000000001', '11111111-0000-0000-0000-000000000011', 'a0000000-0000-0000-0000-000000000001', 'going', null),
+  ('a2000000-0000-0000-0000-000000000001', '11111111-0000-0000-0000-000000000012', 'a0000000-0000-0000-0000-000000000001', 'going', null),
+  ('a2000000-0000-0000-0000-000000000001', '11111111-0000-0000-0000-000000000014', 'a0000000-0000-0000-0000-000000000001', 'not_going', 'School trip'),
+  ('a2000000-0000-0000-0000-000000000003', '11111111-0000-0000-0000-000000000015', 'a0000000-0000-0000-0000-000000000001', 'going', null);
+
+-- ───────────────────────── zug-crew: a class of 15 for the check-in screen ─────────────────────────
+-- coach@zug-crew.example (trainer) and dancer01…dancer15@zug-crew.example, password "bouncewith".
+with u as (
+  select ('33333333-0000-0000-0000-0000000000' || lpad(n::text, 2, '0'))::uuid as id,
+         case when n = 0 then 'coach@zug-crew.example' else 'dancer' || lpad(n::text, 2, '0') || '@zug-crew.example' end as email,
+         case when n = 0 then 'Coach Zora'
+              else (array['Ana','Bine','Cvet','Dino','Ema','Filip','Gaja','Hana','Ian','Jure','Kaja','Leo','Maja','Nik','Ola'])[n]
+                   || ' ' || (array['Kos','Vidmar','Zupan','Bizjak','Hribar','Kralj','Novak','Mlakar','Golob','Turk','Rozman','Petek','Kovač','Zajc','Bergant'])[n]
+         end as full_name
+  from generate_series(0, 15) n
+), ins as (
+  insert into auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,
+                          raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+                          confirmation_token, recovery_token, email_change, email_change_token_new)
+  select '00000000-0000-0000-0000-000000000000', id, 'authenticated', 'authenticated', email,
+         extensions.crypt('bouncewith', extensions.gen_salt('bf')), now(),
+         '{"provider":"email","providers":["email"]}', jsonb_build_object('full_name', full_name), now(), now(), '', '', '', ''
+  from u returning id, email
+)
+insert into auth.identities (id, user_id, provider_id, provider, identity_data, last_sign_in_at, created_at, updated_at)
+select gen_random_uuid(), id, id::text, 'email', jsonb_build_object('sub', id::text, 'email', email, 'email_verified', true), now(), now(), now()
+from ins;
+
+insert into public.workspaces (id, slug, name, type, accent_color, join_code, require_approval, created_by)
+values ('c0000000-0000-0000-0000-000000000001', 'zug-crew', 'Zug Crew', 'dance', '#F01A7F', 'ZUGCREW1', true,
+        '33333333-0000-0000-0000-000000000000');
+insert into public.memberships (workspace_id, user_id, role, status)
+select 'c0000000-0000-0000-0000-000000000001', ('33333333-0000-0000-0000-0000000000' || lpad(n::text, 2, '0'))::uuid,
+       case when n = 0 then 'trainer'::public.member_role else 'member' end, 'active'
+from generate_series(0, 15) n;
+-- the workspace needs an owner: Niko's owner co-owns it
+insert into public.memberships (workspace_id, user_id, role, status)
+values ('c0000000-0000-0000-0000-000000000001', '11111111-0000-0000-0000-000000000001', 'owner', 'active');
+
+insert into public.events (id, workspace_id, title, description, starts_at, ends_at, location, category, created_by)
+values ('c2000000-0000-0000-0000-000000000001', 'c0000000-0000-0000-0000-000000000001', 'Crew Practice',
+        '<p>Full crew run-through.</p>', now() + interval '1 hour', now() + interval '2 hours 30 minutes',
+        'Studio Bounce', 'class', '33333333-0000-0000-0000-000000000000');
+-- dancers 1–12 going, 13 can't make it, 14–15 no answer
+insert into public.rsvps (event_id, user_id, workspace_id, answer, reason)
+select 'c2000000-0000-0000-0000-000000000001', ('33333333-0000-0000-0000-0000000000' || lpad(n::text, 2, '0'))::uuid,
+       'c0000000-0000-0000-0000-000000000001',
+       case when n <= 12 then 'going'::public.rsvp_answer else 'not_going' end,
+       case when n = 13 then 'Exam tomorrow' end
+from generate_series(1, 13) n;
