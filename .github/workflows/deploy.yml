@@ -118,6 +118,18 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Check the demo credentials (lengths only, never the values)
+        run: |
+          echo "E2E_EMAIL: ${#E2E_EMAIL} characters, E2E_PASSWORD: ${#E2E_PASSWORD} characters"
+          if [ -z "$E2E_EMAIL" ] || [ -z "$E2E_PASSWORD" ]; then
+            echo "::error::E2E_EMAIL or E2E_PASSWORD is empty: add both to the 'production' environment secrets"; exit 1
+          fi
+          case "$E2E_EMAIL$E2E_PASSWORD" in
+            *[[:space:]]*) echo "::error::E2E_EMAIL or E2E_PASSWORD contains a space or newline: paste it again"; exit 1 ;;
+          esac
+        env:
+          E2E_EMAIL: ${{ secrets.E2E_EMAIL }}
+          E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
       - run: npx playwright install --with-deps chromium
       - run: npm run e2e
         env:

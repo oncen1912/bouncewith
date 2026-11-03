@@ -1,9 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 // Defaults match supabase/seed.sql. Against a deployed URL set E2E_EMAIL / E2E_PASSWORD.
-const email = process.env.E2E_EMAIL ?? 'mia@niko-dance.example'
-const password = process.env.E2E_PASSWORD ?? 'bouncewith'
-const workspaceName = process.env.E2E_WORKSPACE_NAME ?? 'Niko Dance School'
+const email = process.env.E2E_EMAIL || 'mia@niko-dance.example'
+const password = process.env.E2E_PASSWORD || 'bouncewith'
+const workspaceName = process.env.E2E_WORKSPACE_NAME || 'Niko Dance School'
 
 test('protected pages redirect to login and keep the target', async ({ page }) => {
   await page.goto('/me')
