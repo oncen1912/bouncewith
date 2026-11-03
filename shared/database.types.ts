@@ -1120,6 +1120,7 @@ export type Database = {
           workspace_slug: string
         }[]
       }
+      calendar_feed_exists: { Args: { p_token: string }; Returns: boolean }
       can_see_conversation: { Args: { conv: string }; Returns: boolean }
       can_see_event: { Args: { ev: string }; Returns: boolean }
       cancel_event: {

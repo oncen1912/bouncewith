@@ -25,7 +25,11 @@
       "cannot_target_self": "Tega ne moreš narediti sebi.",
       "last_owner": "Delovni prostor potrebuje vsaj enega lastnika. Najprej določi drugega lastnika.",
       "group_in_use": "To skupino uporabljajo prihajajoči dogodki. Najprej spremeni te dogodke.",
-      "confirm_mismatch": "Vneseni e-naslov se ne ujema s tvojim računom."
+      "confirm_mismatch": "Vneseni e-naslov se ne ujema s tvojim računom.",
+      "group_invalid": "Ena od izbranih skupin ne spada v ta delovni prostor.",
+      "not_series": "Ta dogodek ni del serije.",
+      "invalid_scope": "Izberi, katere dogodke spremeniš.",
+      "message_required": "Napiši sporočilo za obvestilo."
     }
   },
   "languages": {
@@ -94,7 +98,8 @@
     "pending": "Čaka na odobritev",
     "joinTitle": "Pridruži se s kodo",
     "joinText": "Imaš kodo od svoje šole ali studia? Vnesi jo tukaj.",
-    "join": "Pridruži se"
+    "join": "Pridruži se",
+    "eyebrow": "Dobrodošel nazaj"
   },
   "home": {
     "greeting": "Živjo!",
@@ -107,7 +112,8 @@
     "noAccessTitle": "Delovnega prostora ni mogoče najti",
     "noAccessText": "Ne obstaja ali pa tvoje članstvo še ni aktivno.",
     "pendingTitle": "Čakanje na odobritev v {name}",
-    "pendingText": "Dogodke boš videl tukaj, ko trener odobri tvojo prošnjo."
+    "pendingText": "Dogodke boš videl tukaj, ko trener odobri tvojo prošnjo.",
+    "allEvents": "Vsi dogodki"
   },
   "me": {
     "title": "Profil",
@@ -129,7 +135,15 @@
     "deleteConfirm": "Tega ni mogoče razveljaviti.",
     "deleteType": "Za potrditev vpiši {email}",
     "deleteForever": "Izbriši moj račun",
-    "deleted": "Tvoj račun je izbrisan"
+    "deleted": "Tvoj račun je izbrisan",
+    "eyebrow": "Tvoj račun",
+    "calendarTitle": "Koledar",
+    "calendarText": "Naroči se v Google, Apple ali Outlook koledarju in tam vidi svoje dogodke. Povezava je osebna: ne deli je.",
+    "calendarSubscribe": "Naroči se",
+    "calendarGoogle": "Google Koledar",
+    "calendarResetButton": "Ponastavi povezavo",
+    "calendarResetText": "Trenutna povezava preneha delovati. Koledarji, naročeni nanjo, potrebujejo novo povezavo.",
+    "calendarReset": "Ustvarjena je nova povezava za koledar"
   },
   "placeholder": {
     "title": "Kmalu",
@@ -151,7 +165,8 @@
     "slug": "Spletni naslov",
     "slugHelp": "Uporablja se v povezavah, npr. app.bouncewith.me/w/niko-dance. Kasneje ga ni mogoče spremeniti.",
     "submit": "Ustvari delovni prostor",
-    "created": "Delovni prostor je ustvarjen"
+    "created": "Delovni prostor je ustvarjen",
+    "eyebrow": "Začni"
   },
   "settings": {
     "general": "Splošno",
@@ -223,5 +238,83 @@
     "deleteGroup": "Izbriši skupino",
     "deleteGroupConfirm": "Izbrišem to skupino? Člani ostanejo v delovnem prostoru.",
     "groupDeleted": "Skupina je izbrisana"
+  },
+  "events": {
+    "eyebrow": "Kaj prihaja",
+    "new": "Nov dogodek",
+    "create": "Ustvari dogodek",
+    "editTitle": "Uredi dogodek",
+    "view": "Prikaz",
+    "views": {
+      "list": "Seznam",
+      "week": "Teden",
+      "month": "Mesec"
+    },
+    "past": "Pretekli dogodki",
+    "noPast": "Ni preteklih dogodkov",
+    "group": "Skupina",
+    "category": "Kategorija",
+    "all": "Vse",
+    "emptyTrainer": "Ustvari prvo vadbo ali dogodek za svoje člane.",
+    "cancelled": "Odpovedano",
+    "repeats": "Ponavlja se",
+    "public": "Javno",
+    "previous": "Prejšnji",
+    "next": "Naslednji",
+    "today": "Danes",
+    "count": "dogodki: {n}",
+    "noneThatDay": "Ta dan ni ničesar",
+    "everyWeek": "Vsak teden: {days}",
+    "everyNWeeks": "Vsakih {n} tednov: {days}",
+    "cancelTitle": "Odpovej dogodek",
+    "cancelEvent": "Odpovej dogodek",
+    "whichEvents": "Kateri dogodki?",
+    "scopeThis": "Samo ta dogodek",
+    "scopeFuture": "Ta in vsi naslednji dogodki",
+    "scopeFutureHelp": "Dogodki, na katere so ljudje že odgovorili, ostanejo nespremenjeni, da nihče ni presenečen.",
+    "notifyInvited": "Obvesti vse povabljene",
+    "message": "Sporočilo",
+    "notifyHelp": "Prikaže se v nabiralniku članov. Potisna obvestila in e-pošta pridejo s sporočanjem.",
+    "cancelMessage": "{title} dne {date} ({time}) je odpovedan.",
+    "cancelledToast": "Odpovedano: {n}",
+    "restore": "Obnovi dogodek",
+    "restored": "Dogodek spet poteka",
+    "notFound": "Dogodka ni mogoče najti",
+    "noDescription": "Brez opisa.",
+    "when": "Kdaj",
+    "location": "Lokacija",
+    "locationUrl": "Povezava do zemljevida ali strani",
+    "audience": "Kdo je povabljen",
+    "wholeWorkspace": "Vsi v delovnem prostoru",
+    "audienceHelp": "Izberi skupine, da povabiš samo njih. Trenerji vedno vidijo vse dogodke.",
+    "capacity": "Število mest",
+    "capacityValue": "Največ {n} oseb",
+    "unlimited": "Brez omejitve",
+    "deadline": "Odgovor do",
+    "answerUntil": "Odgovor do {date}, {time}",
+    "deadlineAtStart": "Do začetka",
+    "deadlineHours": "{n} h prej",
+    "deadlineDays": "{n} dan(-i) prej",
+    "edit": "Uredi",
+    "title": "Naslov",
+    "description": "Opis",
+    "date": "Datum",
+    "firstDate": "Prvi datum",
+    "start": "Začetek",
+    "end": "Konec",
+    "timezoneHint": "Časi so v pasu {tz}.",
+    "repeatsWeekly": "Ponavlja se vsak teden",
+    "onDays": "Ob",
+    "repeatEvery": "Ponovi",
+    "everyWeekOption": "Vsak teden",
+    "everyNWeeksOption": "Vsakih {n} tednov",
+    "until": "Do (neobvezno)",
+    "untilHelp": "BounceWith vedno načrtuje 12 tednov vnaprej in serijo sproti podaljšuje.",
+    "visibility": "Vidnost",
+    "visibilityMembers": "Samo za člane",
+    "visibilityPublic": "Javno: lahko se prikaže na tvoji spletni strani",
+    "created": "Dogodek je ustvarjen",
+    "seriesCreated": "Serija je ustvarjena: načrtovanih dogodkov {n}",
+    "seriesUpdated": "Posodobljeno {updated}, ohranjeno {kept} (že odgovorjeno), odpovedano {cancelled}, dodano {created}"
   }
 }

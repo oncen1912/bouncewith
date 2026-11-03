@@ -323,6 +323,12 @@ language sql stable security definer set search_path = public as $$
   limit 2000;
 $$;
 
+-- lets the Edge Function tell an unknown token (404) from an empty calendar
+create or replace function public.calendar_feed_exists(p_token text) returns boolean
+language sql stable security definer set search_path = public as $$
+  select length(p_token) >= 32 and exists (select 1 from profiles where calendar_token = p_token);
+$$;
+
 -- ───────────────────────── privileges ─────────────────────────
 revoke execute on all functions in schema private from public, anon, authenticated;
 do $$
@@ -336,8 +342,8 @@ begin
     execute format('grant execute on function public.%s to authenticated', f);
   end loop;
 end $$;
-revoke execute on function public.calendar_feed(text) from public;
-grant execute on function public.calendar_feed(text) to anon, authenticated;
+revoke execute on function public.calendar_feed(text), public.calendar_feed_exists(text) from public;
+grant execute on function public.calendar_feed(text), public.calendar_feed_exists(text) to anon, authenticated;
 
 -- ───────────────────────── cron ─────────────────────────
 create extension if not exists pg_cron;

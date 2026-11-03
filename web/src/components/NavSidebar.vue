@@ -74,7 +74,6 @@ const { t } = useI18n()
   margin-bottom: 0.5rem;
 }
 
-
 .bw-ws {
   display: flex;
   align-items: center;

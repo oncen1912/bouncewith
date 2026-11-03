@@ -64,6 +64,13 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
 
+      - name: Deploy Edge Functions
+        # verify_jwt per function comes from supabase/config.toml (calendar: off, the token is the credential)
+        run: npx supabase functions deploy --project-ref "$SUPABASE_PROJECT_REF" --use-api
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+
       - name: Build app + widget
         run: npm run build
         env:

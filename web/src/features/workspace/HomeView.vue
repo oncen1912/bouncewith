@@ -6,6 +6,7 @@ import LoadingBlock from '@/components/LoadingBlock.vue'
 import { useAuthStore } from '@/features/auth/store'
 import { useWorkspaceStore } from './store'
 import PageHeader from '@/components/PageHeader.vue'
+import NextEvents from '@/features/events/components/NextEvents.vue'
 
 const { t } = useI18n()
 const auth = useAuthStore()
@@ -42,12 +43,16 @@ const firstName = computed(() => auth.profile?.full_name.split(' ')[0] ?? '')
     />
 
     <section class="mb-4" aria-labelledby="next-events">
-      <h2 id="next-events" class="h5">{{ t('home.nextEvents') }}</h2>
-      <EmptyState icon="bi-calendar-event" :title="t('home.noEventsTitle')" :text="t('home.noEventsText')" />
+      <h2 id="next-events" class="h3">{{ t('home.nextEvents') }}</h2>
+      <NextEvents
+        :workspace-id="workspaces.current.workspace_id"
+        :slug="workspaces.current.slug"
+        :is-trainer="workspaces.isTrainer"
+      />
     </section>
 
     <section aria-labelledby="messages">
-      <h2 id="messages" class="h5">{{ t('home.messages') }}</h2>
+      <h2 id="messages" class="h3">{{ t('home.messages') }}</h2>
       <EmptyState icon="bi-chat-dots" :title="t('home.noMessagesTitle')" />
     </section>
   </template>

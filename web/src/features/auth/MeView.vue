@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { toast } from 'vue-sonner'
+import CalendarFeedCard from './components/CalendarFeedCard.vue'
 import DeleteAccountCard from './components/DeleteAccountCard.vue'
 import MyWorkspacesCard from './components/MyWorkspacesCard.vue'
 import LanguageSelect from './components/LanguageSelect.vue'
@@ -105,6 +106,7 @@ async function signOut() {
   </section>
 
   <MyWorkspacesCard />
+  <CalendarFeedCard />
 
   <button type="button" class="btn btn-outline-light w-100 mb-3" @click="signOut">
     <i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i>{{ t('auth.signOut') }}

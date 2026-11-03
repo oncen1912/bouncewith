@@ -21,6 +21,8 @@ describe('router', () => {
   it.each([
     ['/w/niko-dance/members', 'trainer'],
     ['/w/niko-dance/settings', 'owner'],
+    ['/w/niko-dance/events/new', 'trainer'],
+    ['/w/niko-dance/events/abc/edit', 'trainer'],
   ])('%s requires at least %s', (path, role) => {
     expect(router.resolve(path).meta.minRole).toBe(role)
   })
@@ -28,5 +30,7 @@ describe('router', () => {
   it('invite links resolve to the join screen', () => {
     expect(router.resolve('/join/NIKO2026').name).toBe('join')
     expect(router.resolve('/w/new').name).toBe('workspace-new')
+    expect(router.resolve('/w/niko-dance/events/new').name).toBe('event-new')
+    expect(router.resolve('/w/niko-dance/events/abc').name).toBe('event')
   })
 })

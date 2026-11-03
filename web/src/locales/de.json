@@ -25,7 +25,11 @@
       "cannot_target_self": "Das kannst du nicht bei dir selbst tun.",
       "last_owner": "Ein Workspace braucht mindestens eine:n Inhaber:in. Ernenne zuerst jemand anderen.",
       "group_in_use": "Kommende Termine nutzen diese Gruppe. Ändere zuerst diese Termine.",
-      "confirm_mismatch": "Die eingegebene E-Mail passt nicht zu deinem Konto."
+      "confirm_mismatch": "Die eingegebene E-Mail passt nicht zu deinem Konto.",
+      "group_invalid": "Eine der gewählten Gruppen gehört nicht zu diesem Workspace.",
+      "not_series": "Dieser Termin gehört zu keiner Serie.",
+      "invalid_scope": "Wähle, welche Termine du ändern willst.",
+      "message_required": "Schreib eine Nachricht für die Benachrichtigung."
     }
   },
   "languages": {
@@ -94,7 +98,8 @@
     "pending": "Wartet auf Freigabe",
     "joinTitle": "Mit Code beitreten",
     "joinText": "Hast du einen Code von deiner Schule oder deinem Studio? Gib ihn hier ein.",
-    "join": "Beitreten"
+    "join": "Beitreten",
+    "eyebrow": "Willkommen zurück"
   },
   "home": {
     "greeting": "Hallo!",
@@ -107,7 +112,8 @@
     "noAccessTitle": "Workspace nicht gefunden",
     "noAccessText": "Er existiert nicht oder deine Mitgliedschaft ist noch nicht aktiv.",
     "pendingTitle": "Warten auf Freigabe bei {name}",
-    "pendingText": "Sobald deine Anfrage freigegeben ist, siehst du hier die Termine."
+    "pendingText": "Sobald deine Anfrage freigegeben ist, siehst du hier die Termine.",
+    "allEvents": "Alle Termine"
   },
   "me": {
     "title": "Profil",
@@ -129,7 +135,15 @@
     "deleteConfirm": "Das kann nicht rückgängig gemacht werden.",
     "deleteType": "Gib zur Bestätigung {email} ein",
     "deleteForever": "Mein Konto löschen",
-    "deleted": "Dein Konto wurde gelöscht"
+    "deleted": "Dein Konto wurde gelöscht",
+    "eyebrow": "Dein Konto",
+    "calendarTitle": "Kalender-Abo",
+    "calendarText": "Abonniere deine Termine in Google, Apple oder Outlook. Der Link ist persönlich: teile ihn nicht.",
+    "calendarSubscribe": "Abonnieren",
+    "calendarGoogle": "Google Kalender",
+    "calendarResetButton": "Link zurücksetzen",
+    "calendarResetText": "Der aktuelle Link funktioniert nicht mehr. Abonnierte Kalender brauchen den neuen Link.",
+    "calendarReset": "Neuer Kalender-Link erstellt"
   },
   "placeholder": {
     "title": "Demnächst",
@@ -151,7 +165,8 @@
     "slug": "Webadresse",
     "slugHelp": "Wird in Links verwendet, z. B. app.bouncewith.me/w/niko-dance. Kann später nicht geändert werden.",
     "submit": "Workspace erstellen",
-    "created": "Workspace erstellt"
+    "created": "Workspace erstellt",
+    "eyebrow": "Los geht's"
   },
   "settings": {
     "general": "Allgemein",
@@ -223,5 +238,83 @@
     "deleteGroup": "Gruppe löschen",
     "deleteGroupConfirm": "Diese Gruppe löschen? Die Mitglieder bleiben im Workspace.",
     "groupDeleted": "Gruppe gelöscht"
+  },
+  "events": {
+    "eyebrow": "Was kommt",
+    "new": "Neuer Termin",
+    "create": "Termin erstellen",
+    "editTitle": "Termin bearbeiten",
+    "view": "Ansicht",
+    "views": {
+      "list": "Liste",
+      "week": "Woche",
+      "month": "Monat"
+    },
+    "past": "Vergangene Termine",
+    "noPast": "Keine vergangenen Termine",
+    "group": "Gruppe",
+    "category": "Kategorie",
+    "all": "Alle",
+    "emptyTrainer": "Erstelle den ersten Kurs oder Termin für deine Mitglieder.",
+    "cancelled": "Abgesagt",
+    "repeats": "Wiederholt sich",
+    "public": "Öffentlich",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "today": "Heute",
+    "count": "Termine: {n}",
+    "noneThatDay": "An diesem Tag ist nichts geplant",
+    "everyWeek": "Jede Woche: {days}",
+    "everyNWeeks": "Alle {n} Wochen: {days}",
+    "cancelTitle": "Termin absagen",
+    "cancelEvent": "Termin absagen",
+    "whichEvents": "Welche Termine?",
+    "scopeThis": "Nur dieser Termin",
+    "scopeFuture": "Dieser und alle folgenden Termine",
+    "scopeFutureHelp": "Termine, auf die schon geantwortet wurde, bleiben unverändert, damit niemand überrascht wird.",
+    "notifyInvited": "Alle Eingeladenen benachrichtigen",
+    "message": "Nachricht",
+    "notifyHelp": "Erscheint im Postfach der Mitglieder. Push und E-Mail kommen mit den Nachrichten.",
+    "cancelMessage": "{title} am {date} ({time}) ist abgesagt.",
+    "cancelledToast": "Abgesagt: {n}",
+    "restore": "Termin wiederherstellen",
+    "restored": "Der Termin findet wieder statt",
+    "notFound": "Termin nicht gefunden",
+    "noDescription": "Keine Beschreibung.",
+    "when": "Wann",
+    "location": "Ort",
+    "locationUrl": "Link zu Karte oder Website",
+    "audience": "Wer ist eingeladen",
+    "wholeWorkspace": "Alle im Workspace",
+    "audienceHelp": "Wähle Gruppen, um nur sie einzuladen. Trainer:innen sehen immer alle Termine.",
+    "capacity": "Plätze",
+    "capacityValue": "Max. {n} Personen",
+    "unlimited": "Unbegrenzt",
+    "deadline": "Antwort bis",
+    "answerUntil": "Antwort bis {date}, {time}",
+    "deadlineAtStart": "Bis zum Beginn",
+    "deadlineHours": "{n} Std. vorher",
+    "deadlineDays": "{n} Tag(e) vorher",
+    "edit": "Bearbeiten",
+    "title": "Titel",
+    "description": "Beschreibung",
+    "date": "Datum",
+    "firstDate": "Erster Termin",
+    "start": "Beginn",
+    "end": "Ende",
+    "timezoneHint": "Zeiten in {tz}.",
+    "repeatsWeekly": "Wiederholt sich jede Woche",
+    "onDays": "Am",
+    "repeatEvery": "Wiederholen",
+    "everyWeekOption": "Jede Woche",
+    "everyNWeeksOption": "Alle {n} Wochen",
+    "until": "Bis (optional)",
+    "untilHelp": "BounceWith plant immer 12 Wochen im Voraus und verlängert die Serie laufend.",
+    "visibility": "Sichtbarkeit",
+    "visibilityMembers": "Nur Mitglieder",
+    "visibilityPublic": "Öffentlich: kann auf deiner Website erscheinen",
+    "created": "Termin erstellt",
+    "seriesCreated": "Serie erstellt: {n} Termine geplant",
+    "seriesUpdated": "Aktualisiert {updated}, behalten {kept} (schon beantwortet), abgesagt {cancelled}, neu {created}"
   }
 }

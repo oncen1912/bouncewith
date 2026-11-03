@@ -25,7 +25,11 @@
       "cannot_target_self": "You can't do this to yourself.",
       "last_owner": "A workspace needs at least one owner. Make someone else owner first.",
       "group_in_use": "Upcoming events use this group. Change those events first.",
-      "confirm_mismatch": "The e-mail you typed doesn't match your account."
+      "confirm_mismatch": "The e-mail you typed doesn't match your account.",
+      "group_invalid": "One of the selected groups doesn't belong to this workspace.",
+      "not_series": "This event isn't part of a series.",
+      "invalid_scope": "Choose which events to change.",
+      "message_required": "Write a message for the notification."
     }
   },
   "languages": {
@@ -94,7 +98,8 @@
     "pending": "Waiting for approval",
     "joinTitle": "Join with a code",
     "joinText": "Got a code from your school or studio? Enter it here.",
-    "join": "Join"
+    "join": "Join",
+    "eyebrow": "Welcome back"
   },
   "home": {
     "greeting": "Hi there!",
@@ -107,7 +112,8 @@
     "noAccessTitle": "Workspace not found",
     "noAccessText": "It doesn't exist, or your membership isn't active yet.",
     "pendingTitle": "Waiting for approval at {name}",
-    "pendingText": "You'll see events here once a trainer approves your request."
+    "pendingText": "You'll see events here once a trainer approves your request.",
+    "allEvents": "All events"
   },
   "me": {
     "title": "Profile",
@@ -129,7 +135,15 @@
     "deleteConfirm": "This can't be undone.",
     "deleteType": "Type {email} to confirm",
     "deleteForever": "Delete my account",
-    "deleted": "Your account was deleted"
+    "deleted": "Your account was deleted",
+    "eyebrow": "Your account",
+    "calendarTitle": "Calendar feed",
+    "calendarText": "Subscribe in Google, Apple or Outlook Calendar to see your events there. The link is personal: don't share it.",
+    "calendarSubscribe": "Subscribe",
+    "calendarGoogle": "Google Calendar",
+    "calendarResetButton": "Reset link",
+    "calendarResetText": "The current link stops working. Calendars subscribed to it need the new link.",
+    "calendarReset": "New calendar link created"
   },
   "placeholder": {
     "title": "Coming soon",
@@ -151,7 +165,8 @@
     "slug": "Web address",
     "slugHelp": "Used in links, e.g. app.bouncewith.me/w/niko-dance. Can't be changed later.",
     "submit": "Create workspace",
-    "created": "Workspace created"
+    "created": "Workspace created",
+    "eyebrow": "Get started"
   },
   "settings": {
     "general": "General",
@@ -223,5 +238,83 @@
     "deleteGroup": "Delete group",
     "deleteGroupConfirm": "Delete this group? Members stay in the workspace.",
     "groupDeleted": "Group deleted"
+  },
+  "events": {
+    "eyebrow": "What's coming up",
+    "new": "New event",
+    "create": "Create event",
+    "editTitle": "Edit event",
+    "view": "View",
+    "views": {
+      "list": "List",
+      "week": "Week",
+      "month": "Month"
+    },
+    "past": "Past events",
+    "noPast": "No past events",
+    "group": "Group",
+    "category": "Category",
+    "all": "All",
+    "emptyTrainer": "Create the first class or event for your members.",
+    "cancelled": "Cancelled",
+    "repeats": "Repeats",
+    "public": "Public",
+    "previous": "Previous",
+    "next": "Next",
+    "today": "Today",
+    "count": "events: {n}",
+    "noneThatDay": "Nothing planned that day",
+    "everyWeek": "Every week on {days}",
+    "everyNWeeks": "Every {n} weeks on {days}",
+    "cancelTitle": "Cancel event",
+    "cancelEvent": "Cancel event",
+    "whichEvents": "Which events?",
+    "scopeThis": "Only this event",
+    "scopeFuture": "This and all following events",
+    "scopeFutureHelp": "Events people already answered stay unchanged, so nobody is surprised.",
+    "notifyInvited": "Tell everyone who is invited",
+    "message": "Message",
+    "notifyHelp": "Shown in the members' inbox. Push and e-mail delivery come with messaging.",
+    "cancelMessage": "{title} on {date} ({time}) is cancelled.",
+    "cancelledToast": "Cancelled: {n}",
+    "restore": "Restore event",
+    "restored": "The event is back on",
+    "notFound": "Event not found",
+    "noDescription": "No description.",
+    "when": "When",
+    "location": "Location",
+    "locationUrl": "Map or website link",
+    "audience": "Who is invited",
+    "wholeWorkspace": "Everyone in the workspace",
+    "audienceHelp": "Pick groups to invite only them. Trainers always see every event.",
+    "capacity": "Capacity",
+    "capacityValue": "Max. {n} people",
+    "unlimited": "No limit",
+    "deadline": "Answer by",
+    "answerUntil": "Answer by {date}, {time}",
+    "deadlineAtStart": "Until it starts",
+    "deadlineHours": "{n} h before",
+    "deadlineDays": "{n} day(s) before",
+    "edit": "Edit",
+    "title": "Title",
+    "description": "Description",
+    "date": "Date",
+    "firstDate": "First date",
+    "start": "Starts",
+    "end": "Ends",
+    "timezoneHint": "Times are in {tz}.",
+    "repeatsWeekly": "Repeats every week",
+    "onDays": "On",
+    "repeatEvery": "Repeat",
+    "everyWeekOption": "Every week",
+    "everyNWeeksOption": "Every {n} weeks",
+    "until": "Until (optional)",
+    "untilHelp": "BounceWith always plans 12 weeks ahead and keeps extending the series.",
+    "visibility": "Visibility",
+    "visibilityMembers": "Members only",
+    "visibilityPublic": "Public: may appear on your website",
+    "created": "Event created",
+    "seriesCreated": "Series created: {n} events planned",
+    "seriesUpdated": "Updated {updated}, kept {kept} (already answered), cancelled {cancelled}, added {created}"
   }
 }

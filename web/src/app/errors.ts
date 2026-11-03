@@ -16,6 +16,10 @@ const RPC_CODES = [
   'last_owner',
   'group_in_use',
   'confirm_mismatch',
+  'group_invalid',
+  'not_series',
+  'invalid_scope',
+  'message_required',
 ] as const
 export type RpcCode = (typeof RPC_CODES)[number]
 

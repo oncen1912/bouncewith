@@ -4,7 +4,10 @@ withDefaults(defineProps<{ size?: number }>(), { size: 36 })
 </script>
 
 <template>
-  <span class="bw-mark" :style="{ width: `${size}px`, height: `${size}px`, fontSize: `${size * 0.5}px` }" aria-hidden="true"
+  <span
+    class="bw-mark"
+    :style="{ width: `${size}px`, height: `${size}px`, fontSize: `${size * 0.5}px` }"
+    aria-hidden="true"
     >BW</span
   >
 </template>

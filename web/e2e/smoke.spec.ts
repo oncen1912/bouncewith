@@ -11,7 +11,7 @@ test('protected pages redirect to login and keep the target', async ({ page }) =
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
 })
 
-test('a seeded user signs in with a password and sees the empty home', async ({ page, isMobile }) => {
+test('a seeded user signs in with a password and sees the home screen', async ({ page, isMobile }) => {
   await page.goto('/login')
   await page.getByText('Password', { exact: true }).click()
   await page.getByRole('textbox', { name: 'E-mail' }).fill(email)
@@ -22,7 +22,7 @@ test('a seeded user signs in with a password and sees the empty home', async ({ 
   await page.getByRole('link', { name: new RegExp(workspaceName) }).click()
 
   await expect(page.getByRole('heading', { name: /^Hi / })).toBeVisible()
-  await expect(page.getByText('No events yet')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Next events' })).toBeVisible()
 
   // phones get the bottom tab bar, desktops the sidebar; role queries only see the visible one
   const nav = page.getByRole('navigation', { name: 'Main navigation' })

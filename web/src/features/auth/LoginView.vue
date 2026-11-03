@@ -65,7 +65,6 @@ async function google() {
   max-width: 440px;
 }
 
-
 .bw-or {
   display: flex;
   align-items: center;

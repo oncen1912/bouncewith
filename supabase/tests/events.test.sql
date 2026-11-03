@@ -2,7 +2,7 @@
 -- Users: oA owner A, tA trainer A, mJ member A in Juniors, mO member A without group, oB owner B.
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(47);
+select plan(49);
 
 insert into auth.users (id, email, raw_user_meta_data) values
  ('00000000-0000-0000-0002-0000000000a1', 'oa@m2.test', '{"full_name":"Owner A"}'),
@@ -187,6 +187,8 @@ select is((select count(*)::int from calendar_feed((select calendar_token from t
 select is((select count(*)::int from calendar_feed((select calendar_token from tok where id = '00000000-0000-0000-0002-0000000000b1'))), 0,
   'the feed of owner B has no A events');
 select is_empty($$ select * from calendar_feed('not-a-real-token-but-long-enough-000000000000') $$, 'an unknown token gives nothing');
+select is(calendar_feed_exists('not-a-real-token-but-long-enough-000000000000'), false, 'unknown tokens are reported as unknown');
+select is(calendar_feed_exists((select calendar_token from tok where id = '00000000-0000-0000-0002-0000000000a4')), true, 'known tokens exist');
 select throws_ok($$ select expand_series('5e000000-0000-0000-0002-000000000001') $$, '42501', null, 'anon cannot call trainer RPCs');
 
 reset role;
