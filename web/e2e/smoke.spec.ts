@@ -19,10 +19,9 @@ test('a seeded user signs in with a password and sees the home screen', async ({
   await page.getByRole('button', { name: 'Sign in' }).click()
 
   await expect(
-    page.getByText('Wrong e-mail or password.'),
-    'sign-in rejected: check E2E_EMAIL / E2E_PASSWORD',
-  ).toHaveCount(0)
-  await expect(page, 'sign-in did not reach the workspace list').toHaveURL(/\/w$/)
+    page,
+    'sign-in did not reach the workspace list (against a deployed URL: check the E2E_EMAIL / E2E_PASSWORD secrets)',
+  ).toHaveURL(/\/w$/)
   await page.getByRole('link', { name: new RegExp(workspaceName) }).click()
 
   await expect(page.getByRole('heading', { name: /^Hi / })).toBeVisible()
