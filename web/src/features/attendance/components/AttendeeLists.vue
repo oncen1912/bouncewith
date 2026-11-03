@@ -5,6 +5,7 @@ import { toast } from 'vue-sonner'
 import type { EventRow } from '@/features/events/types'
 import { useEventFormat } from '@/features/events/useEventFormat'
 import * as api from '../api'
+import { useAttendanceStore } from '../store'
 import { downloadCsv } from '../csv'
 import type { Attendee } from '../types'
 
@@ -12,12 +13,14 @@ import type { Attendee } from '../types'
 const props = defineProps<{ event: EventRow }>()
 const { t } = useI18n()
 const f = useEventFormat()
+const attendance = useAttendanceStore()
 const rows = ref<Attendee[]>([])
 const tab = ref<'going' | 'not_going' | 'none'>('going')
 
+// reload when the event changes or its counts change (e.g. the trainer answered "Are you coming?" above)
 watch(
-  () => props.event.id,
-  async (id) => {
+  () => [props.event.id, attendance.counts[props.event.id]] as const,
+  async ([id]) => {
     try {
       rows.value = await api.attendees(id)
     } catch {

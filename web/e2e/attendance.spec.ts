@@ -103,3 +103,18 @@ test('members cannot open the check-in screen', async ({ page }, info) => {
   await signIn(page, 'dancer01@zug-crew.example')
   await expect(page).toHaveURL(/\/w\/zug-crew$/)
 })
+
+test("the trainer's answer lists follow their own answer without a reload", async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'one run is enough')
+  await page.goto('/w/niko-dance/events/a2000000-0000-0000-0000-000000000004')
+  await signIn(page, 'trainer@niko-dance.example')
+  const rsvp = page.getByRole('region', { name: 'Are you coming?' })
+  const answers = page.getByRole('region', { name: 'Answers' })
+  await rsvp.getByRole('button', { name: "Can't make it" }).click()
+  await page.getByRole('dialog').getByRole('button', { name: 'Send' }).click()
+  await answers.getByRole('button', { name: /^Can't \(/ }).click()
+  await expect(answers.getByText('Tara Trainer')).toBeVisible()
+  await rsvp.getByRole('button', { name: "I'm in" }).click()
+  await answers.getByRole('button', { name: /^Going \(/ }).click()
+  await expect(answers.getByText('Tara Trainer')).toBeVisible()
+})
